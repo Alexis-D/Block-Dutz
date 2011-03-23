@@ -1,5 +1,5 @@
 package model.game.box;
 
-public class Ground {
+public class Ground extends Box {
 
 }
