@@ -199,4 +199,11 @@ public class Level {
 		}
 		return s.toString();
 	}
+	
+	public ArrayList<ArrayList<Box>> getMap() {
+		return map;
+	}
+	
+	
 }
+
