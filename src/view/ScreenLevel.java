@@ -27,6 +27,7 @@ public class ScreenLevel extends BasicGame{
     Image ground;
 	Image player;
 	Image box;
+	Image door;
     
     /*HashMap<Box, String> boxList;*/
     
@@ -42,6 +43,7 @@ public class ScreenLevel extends BasicGame{
 		ground = new Image("ressources/ground.png");
 		player = new Image("ressources/alex.png");
 		box = new Image("ressources/box.png");
+		door = new Image("ressources/door.png");
 	}
 
 	
@@ -92,10 +94,10 @@ public class ScreenLevel extends BasicGame{
 	}
 
 	@Override
-	public void render(GameContainer arg0, Graphics arg1) throws SlickException {
+	public void render(GameContainer gc, Graphics g) throws SlickException {
 		
 	//	back.draw(0, 200);
-		generateMap();
+		generateMap(g);
 	}
  
 	
@@ -107,7 +109,7 @@ public class ScreenLevel extends BasicGame{
 	
 	
 	
-	private void generateMap() throws SlickException {
+	private void generateMap(Graphics g) throws SlickException {
 		
 		ArrayList<ArrayList<Box>> map = l.getMap();
 
@@ -122,6 +124,8 @@ public class ScreenLevel extends BasicGame{
 				case GROUND : ground.draw(x,y); break;
 				case PLAYER : player.draw(x,y); break;
 				case BLOCK : box.draw(x,y); break;
+				case DOOR : door.draw(x,y); break;
+				case PLAYER_ON_DOOR : g.drawString("T'as gagné pauv'con", 150, 150);; break;
 				}	
 				
 				x += ground.getWidth();
@@ -138,6 +142,7 @@ public class ScreenLevel extends BasicGame{
 		 ScreenLevel g = new ScreenLevel();
 		 g.setLevel(l);
 	     AppGameContainer app = new AppGameContainer(g);
+	     app.setShowFPS(false);
 	     app.setDisplayMode(900, 700, false);
 	     app.start();
 	}
