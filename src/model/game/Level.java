@@ -75,24 +75,23 @@ public class Level {
 	public void action(Action a) throws Exception {
 		if (!finished) {
 			switch (a) {
-				case UP:
-					up();
-					break;
-		
-				case DOWN:
-					down();
-					break;
-		
-				case LEFT:
-					deplacement(-1);
-					break;
-		
-				case RIGHT:
-					deplacement(1);
-					break;
+			case UP:
+				up();
+				break;
+
+			case DOWN:
+				down();
+				break;
+
+			case LEFT:
+				deplacement(-1);
+				break;
+
+			case RIGHT:
+				deplacement(1);
+				break;
 			}
-		}
-		else {
+		} else {
 			throw new IllegalMovementException();
 		}
 	}
@@ -103,48 +102,56 @@ public class Level {
 				&& map.get(y - 1).get(x + p.getDirection()) == Box.EMPTY
 				&& map.get(y - 1).get(x) == Box.EMPTY) {
 			swap(x + p.getDirection(), y, x, y - 1);
-		}
-		else {
+		} else {
 			throw new IllegalMovementException();
 		}
 	}
 
 	private void down() throws IllegalMovementException {
-		if (map.get(p.getY() - 1).get(p.getX() + p.getDirection()) == Box.EMPTY) {
+		if (map.get(p.getY() - 1).get(p.getX() + p.getDirection()) == Box.EMPTY
+				&& map.get(p.getY() - 1).get(p.getX()) == Box.BLOCK) {
 			int y = yChute(p.getX() + p.getDirection(), p.getY() - 1);
 			swap(p.getX(), p.getY() - 1, p.getX() + p.getDirection(), y);
-		}
-		else {
+		} else {
 			throw new IllegalMovementException();
 		}
 	}
-	
-	private void deplacement(int d) throws IllegalMovementException, IndexOutOfBoundsException {
-		if (d != p.getDirection()) { //changement direction
+
+	private void deplacement(int d) throws IllegalMovementException,
+			IndexOutOfBoundsException {
+		if (d != p.getDirection()) { // changement direction
 			p.setDirection(d);
-		}
-		else { //deplacement
+		} else { // deplacement
 			int y = p.getY(), x = p.getX() + p.getDirection();
-			if (map.get(y - 1).get(x) == Box.EMPTY || map.get(y - 1).get(x) == Box.DOOR) { //peut monter ?
+			if ((map.get(y - 1).get(x) == Box.EMPTY || map.get(y - 1).get(x) == Box.DOOR)
+					&& (map.get(y - 1).get(p.getX()) == Box.EMPTY || map.get(
+							y - 1).get(p.getX()) == Box.BLOCK)) { // peut monter
+																	// ?
 				--y;
-			}
-			else if (map.get(y).get(x) != Box.EMPTY && map.get(y).get(x) != Box.DOOR) { // peut à coté ?
+			} else if (map.get(y).get(x) != Box.EMPTY
+					&& map.get(y).get(x) != Box.DOOR) { // peut à coté ?
 				throw new IllegalMovementException();
 			}
-			y = yChute(x, y); //effecue déplacement
+			y = yChute(x, y); // effecue déplacement
 			if (map.get(y).get(x) == Box.DOOR) {
 				finished = true;
 				map.get(y).set(x, Box.PLAYER_ON_DOOR);
 				map.get(p.getY()).set(p.getX(), Box.EMPTY);
-			}
-			else {
+			} else {
 				swap(p.getX(), p.getY(), x, y);
 
-				if (map.get(p.getY() - 1).get(p.getX()) == Box.BLOCK) { //avait un bloc ?
-					if (map.get(p.getY() - 1).get(x) == Box.EMPTY) { //caisse peut se déplacer
-						swap(p.getX(), p.getY() - 1, x, y - 1);
-					}
-					else { //caisse coincée donc tombe a la place du player
+				if (map.get(p.getY() - 1).get(p.getX()) == Box.BLOCK) { // avait
+																		// un
+																		// bloc
+																		// ?
+					/*if (map.get(p.getY() - 1).get(x) == Box.EMPTY) { // caisse
+																		// peut
+																		// se
+																		// déplacer
+						swap(p.getX(), p.getY() - 1, x, y - 1);*/
+					if(map.get(y - 1).get(x) == Box.EMPTY) {
+						swap(x, y - 1, p.getX(), p.getY() - 1);
+					} else { // caisse coincée donc tombe a la place du player
 						swap(p.getX(), p.getY() - 1, p.getX(), p.getY());
 					}
 				}
@@ -154,13 +161,13 @@ public class Level {
 			p.setY(y);
 		}
 	}
-	
+
 	private void swap(int x1, int y1, int x2, int y2) {
 		Box temporaire = map.get(y1).get(x1);
 		map.get(y1).set(x1, map.get(y2).get(x2));
 		map.get(y2).set(x2, temporaire);
 	}
-	
+
 	private int yChute(int x, int y) {
 		while (map.get(y + 1).get(x) == Box.EMPTY) {
 			++y;
@@ -179,19 +186,32 @@ public class Level {
 	public String getName() {
 		return name;
 	}
-	
+
 	public String toString() {
-		StringBuilder s = new StringBuilder("x : " + p.getX() + ", y:" + p.getY() + "\n");
+		StringBuilder s = new StringBuilder("x : " + p.getX() + ", y:"
+				+ p.getY() + "\n");
 		for (ArrayList<Box> bs : map) {
 			for (Box b : bs) {
 				char c = ' ';
 				switch (b) {
-					case BLOCK : c = '*'; break;
-					case PLAYER : c = '@'; break;
-					case EMPTY : c = ' '; break;
-					case PLAYER_ON_DOOR : c = '%'; break;
-					case DOOR : c = '!'; break;
-					case GROUND : c = '+'; break;
+				case BLOCK:
+					c = '*';
+					break;
+				case PLAYER:
+					c = '@';
+					break;
+				case EMPTY:
+					c = ' ';
+					break;
+				case PLAYER_ON_DOOR:
+					c = '%';
+					break;
+				case DOOR:
+					c = '!';
+					break;
+				case GROUND:
+					c = '+';
+					break;
 				}
 				s.append(c);
 			}
@@ -199,11 +219,9 @@ public class Level {
 		}
 		return s.toString();
 	}
-	
+
 	public ArrayList<ArrayList<Box>> getMap() {
 		return map;
 	}
-	
-	
-}
 
+}
