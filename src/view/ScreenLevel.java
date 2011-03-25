@@ -46,8 +46,15 @@ public class ScreenLevel extends BasicGame{
 		door = new Image("ressources/door.png");
 	}
 
-	
-
+	private void slow(Input input, long ms){
+		input.pause();
+		try {
+			Thread.sleep(ms);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		input.resume();
+	}
 	
 	
 	@Override
@@ -55,12 +62,15 @@ public class ScreenLevel extends BasicGame{
 		
 		Input input = gc.getInput();
 		
+		
         if(input.isKeyDown(Input.KEY_UP))
         {
         	try {
 				l.action(Action.UP);
 			} catch (Exception e) {
 			}
+			
+			slow(input,75);
         }
  
         if(input.isKeyDown(Input.KEY_DOWN))
@@ -69,6 +79,7 @@ public class ScreenLevel extends BasicGame{
 				l.action(Action.DOWN);
 			} catch (Exception e) {
 			}
+			slow(input,75);
         }
         
         if(input.isKeyDown(Input.KEY_LEFT))
@@ -77,6 +88,7 @@ public class ScreenLevel extends BasicGame{
 				l.action(Action.LEFT);
 			} catch (Exception e) {
 			}
+			slow(input,75);
         }
 		
         if(input.isKeyDown(Input.KEY_RIGHT))
@@ -85,11 +97,22 @@ public class ScreenLevel extends BasicGame{
 				l.action(Action.RIGHT);
 			} catch (Exception e) {
 			}
+			slow(input,75);
         }
 
         if(input.isKeyDown(Input.KEY_ESCAPE))
         {
-        	
+        	System.exit(0);
+        }
+        
+        if(input.isKeyDown(Input.KEY_F1))
+        {
+        	try {
+				this.start("maps/Map 01");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
 	}
 
@@ -125,7 +148,7 @@ public class ScreenLevel extends BasicGame{
 				case PLAYER : player.draw(x,y); break;
 				case BLOCK : box.draw(x,y); break;
 				case DOOR : door.draw(x,y); break;
-				case PLAYER_ON_DOOR : g.drawString("T'as gagné pauv'con", 150, 150);; break;
+				case PLAYER_ON_DOOR : g.drawString("T'as gagné pauv'con (" + l.getNbMoves() + ")", 150, 150);; break;
 				}	
 				
 				x += ground.getWidth();
@@ -135,16 +158,22 @@ public class ScreenLevel extends BasicGame{
 		}
 	}
 
-
-	public static void main(String[] args) throws SlickException, IOException {
-		
-		 Level l = new Level("maps/Map 01");
+	
+	public void start(String path) throws IOException, SlickException{
+		 Level l = new Level(path);
 		 ScreenLevel g = new ScreenLevel();
 		 g.setLevel(l);
 	     AppGameContainer app = new AppGameContainer(g);
 	     app.setShowFPS(false);
 	     app.setDisplayMode(900, 700, false);
 	     app.start();
+	}
+	
+
+	public static void main(String[] args) throws SlickException, IOException{
+		
+		ScreenLevel sl = new ScreenLevel();
+		sl.start("maps/Map 01");
 	}
 	
 	
