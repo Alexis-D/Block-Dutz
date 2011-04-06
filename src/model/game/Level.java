@@ -38,29 +38,12 @@ public class Level {
 				char c = line.charAt(i);
 
 				switch (c) {
-				case '+':
-					row.add(Box.GROUND);
-					break;
-
-				case '*':
-					row.add(Box.BLOCK);
-					break;
-
-				case '!':
-					row.add(Box.DOOR);
-					break;
-
-				case '@':
-					p = new Player(i, j - 1);
-					row.add(Box.PLAYER);
-					break;
-
-				case ' ':
-					row.add(Box.EMPTY);
-					break;
-
-				default:
-					throw new IOException("Invalid character in the map file.");
+    				case '+': row.add(Box.GROUND); break;
+    				case '*': row.add(Box.BLOCK); break;
+    				case '!':row.add(Box.DOOR); break;
+    				case '@': p = new Player(i, j - 1); row.add(Box.PLAYER); break;
+    				case ' ': row.add(Box.EMPTY); break;
+    				default: throw new IOException("Invalid character in the map file.");
 				}
 			}
 		}
@@ -72,24 +55,14 @@ public class Level {
 		}
 	}
 
-	public void action(Action a) throws Exception {
+
+    public void action(Action a) throws Exception {
 		if (!finished) {
 			switch (a) {
-			case UP:
-				up();
-				break;
-
-			case DOWN:
-				down();
-				break;
-
-			case LEFT:
-				deplacement(-1);
-				break;
-
-			case RIGHT:
-				deplacement(1);
-				break;
+    			case UP: up(); break;
+    			case DOWN: down(); break;
+    			case LEFT: deplacement(-1); break;
+    			case RIGHT: deplacement(1); break;
 			}
 		} else {
 			throw new IllegalMovementException();
@@ -186,32 +159,23 @@ public class Level {
 	public String getName() {
 		return name;
 	}
+	
+	public Player getPlayer(){
+		return p;
+	}
 
 	public String toString() {
-		StringBuilder s = new StringBuilder("x : " + p.getX() + ", y:"
-				+ p.getY() + "\n");
+		StringBuilder s = new StringBuilder("x : " + p.getX() + ", y:" + p.getY() + "\n");
 		for (ArrayList<Box> bs : map) {
 			for (Box b : bs) {
 				char c = ' ';
 				switch (b) {
-				case BLOCK:
-					c = '*';
-					break;
-				case PLAYER:
-					c = '@';
-					break;
-				case EMPTY:
-					c = ' ';
-					break;
-				case PLAYER_ON_DOOR:
-					c = '%';
-					break;
-				case DOOR:
-					c = '!';
-					break;
-				case GROUND:
-					c = '+';
-					break;
+    				case BLOCK: c = '*'; break;
+    				case PLAYER: c = '@'; break;
+    				case EMPTY: c = ' '; break;
+    				case PLAYER_ON_DOOR: c = '%'; break;
+    				case DOOR: c = '!'; break;
+    				case GROUND: c = '+'; break;
 				}
 				s.append(c);
 			}
