@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import model.game.Action;
 import model.game.Box;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -70,6 +71,8 @@ public class Level extends BasicGameState {
             
             y += ground.getHeight();
         }
+        //g.setBackground(new Color(50, 50, 200));
+        g.drawString("" + this.l.getNbMoves(), 50, 50);
     }
  
     
