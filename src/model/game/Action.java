@@ -1,5 +1,5 @@
 package model.game;
 
 public enum Action {
-	UP, DOWN, LEFT, RIGHT
+	TOGGLE, LEFT, RIGHT
 }

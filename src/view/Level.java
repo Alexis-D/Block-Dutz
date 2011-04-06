@@ -91,8 +91,7 @@ public class Level extends BasicGameState {
 	    Action a = null;
 	    switch (key) {
 	        case Input.KEY_ESCAPE : game.enterState(0); break;
-	        case Input.KEY_UP : a = Action.UP; break;
-	        case Input.KEY_DOWN : a = Action.DOWN; break;
+	        case Input.KEY_SPACE : a = Action.TOGGLE; break;
 	        case Input.KEY_LEFT : a = Action.LEFT; break;
 	        case Input.KEY_RIGHT : a = Action.RIGHT; break;
 	    }

@@ -40,7 +40,7 @@ public class Level {
 				switch (c) {
     				case '+': row.add(Box.GROUND); break;
     				case '*': row.add(Box.BLOCK); break;
-    				case '!':row.add(Box.DOOR); break;
+    				case '!': row.add(Box.DOOR); break;
     				case '@': p = new Player(i, j - 1); row.add(Box.PLAYER); break;
     				case ' ': row.add(Box.EMPTY); break;
     				default: throw new IOException("Invalid character in the map file.");
@@ -55,12 +55,19 @@ public class Level {
 		}
 	}
 
+	public void toggle() throws IllegalMovementException {
+		if (map.get(p.getY() - 1).get(p.getX()) == Box.BLOCK) {
+			down();
+			return;
+		}
+		
+		up();
+	}
 
     public void action(Action a) throws Exception {
 		if (!finished) {
 			switch (a) {
-    			case UP: up(); break;
-    			case DOWN: down(); break;
+				case TOGGLE: toggle(); break;
     			case LEFT: deplacement(-1); break;
     			case RIGHT: deplacement(1); break;
 			}
