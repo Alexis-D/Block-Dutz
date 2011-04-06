@@ -40,7 +40,7 @@ public class Level {
 				switch (c) {
     				case '+': row.add(Box.GROUND); break;
     				case '*': row.add(Box.BLOCK); break;
-    				case '!':row.add(Box.DOOR); break;
+    				case '!': row.add(Box.DOOR); break;
     				case '@': p = new Player(i, j - 1); row.add(Box.PLAYER); break;
     				case ' ': row.add(Box.EMPTY); break;
     				default: throw new IOException("Invalid character in the map file.");
