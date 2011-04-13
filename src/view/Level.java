@@ -17,6 +17,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class Level extends BasicGameState {
     private StateBasedGame game;
     private GameContainer container;
+    private int id;
     
     private model.game.Level l = null;
     private Image back, ground, groundBasic, playerLeft,playerRight, box, door;
@@ -77,6 +78,8 @@ public class Level extends BasicGameState {
     public void update(GameContainer gc, StateBasedGame sbg, int arg2) throws SlickException { }
 	
 	public void setLevel(Integer level){
+		id = level;
+		
 	    try {
             l = new model.game.Level("maps/" + level);
         } catch (IOException e) {
@@ -91,6 +94,7 @@ public class Level extends BasicGameState {
 	        case Input.KEY_SPACE : a = Action.TOGGLE; break;
 	        case Input.KEY_LEFT : a = Action.LEFT; break;
 	        case Input.KEY_RIGHT : a = Action.RIGHT; break;
+	        case Input.KEY_ENTER : setLevel(id);
 	    }
 	    if (a != null) {
             try {
