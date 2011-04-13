@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import model.game.Action;
 import model.game.Box;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -20,14 +21,12 @@ public class Level extends BasicGameState {
     private int id;
     
     private model.game.Level l = null;
-    private Image back, ground, groundBasic, playerLeft,playerRight, box, door;
+    private Image back, ground, playerLeft,playerRight, box, door;
 
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         this.container = gc;
         this.game = sbg;
-        back = new Image("ressources/teeworlds-data/mapres/mountains.png");
         ground = new Image("ressources/ground.png");
-        groundBasic = new Image("ressources/groundbasic.png");
         playerLeft = new Image("ressources/playerLeft.png");
         playerRight = new Image("ressources/playerRight.png");
         box = new Image("ressources/box.png");
@@ -35,7 +34,7 @@ public class Level extends BasicGameState {
     }
 	
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-
+    	g.setBackground(new Color(255, 232, 196));
        int y = 0;
        ArrayList<Box> lastLine = null;
        int absBox = 0;
@@ -47,9 +46,9 @@ public class Level extends BasicGameState {
             for(Box m: c){
                 switch(m) {
                     case GROUND : 
-                    			if(lastLine != null && lastLine.get(absBox) == Box.GROUND)
+                    			/*if(lastLine != null && lastLine.get(absBox) == Box.GROUND)
                     				groundBasic.draw(x,y);
-                    			else
+                    			else*/
                     				ground.draw(x,y);
                     			break;	
                     case PLAYER : 
