@@ -21,6 +21,7 @@ public class LevelSelector extends BasicGameState {
     public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException { }
     
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
+    	g.setBackground(Color.black);
         g.setColor(new Color(255, 215, 0));
         for (int x = 0; x < 7; ++x) {
             for (int y = 0; y < 5; ++y) {
