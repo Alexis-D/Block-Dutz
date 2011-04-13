@@ -152,6 +152,11 @@ public class Level {
 		while (map.get(y + 1).get(x) == Box.EMPTY) {
 			++y;
 		}
+		
+		if(map.get(y + 1).get(x) == Box.DOOR) {
+			++y;
+		}
+		
 		return y;
 	}
 

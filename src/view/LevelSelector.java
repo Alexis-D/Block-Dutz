@@ -34,7 +34,7 @@ public class LevelSelector extends BasicGameState {
     }
 
     public void keyPressed(int key, char c) {
-        if (key == Input.KEY_ENTER) {
+        if (key == Input.KEY_ENTER || key == Input.KEY_SPACE) {
             try {
                 game.getState(1).init(container, game);
                 ((Level) game.getState(1)).setLevel(selected + 1);
