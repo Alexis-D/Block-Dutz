@@ -1,5 +1,14 @@
 package model.game;
 
 public enum Box {
-	BLOCK, GROUND, DOOR, PLAYER, EMPTY, PLAYER_ON_DOOR
+	BLOCK(true), GROUND(true), DOOR(false), PLAYER(true), EMPTY(false), PLAYER_ON_DOOR(true);
+	
+	private boolean blocking;
+	private Box(boolean b) {
+	    blocking = b;
+	}
+
+	public boolean isBlocking() {
+	    return blocking;
+	}
 }

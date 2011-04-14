@@ -21,16 +21,17 @@ public class Level extends BasicGameState {
 	private int id;
 
 	private model.game.Level l = null;
-	private Image back, ground, playerLeft,playerRight, box, door;
+	private Image back, ground, playerLeft,playerRight, box, door, playerDoor;
 
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		this.container = gc;
 		this.game = sbg;
 		ground = new Image("ressources/ground.png");
-		playerLeft = new Image("ressources/playerLeft.png");
-		playerRight = new Image("ressources/playerRight.png");
+		playerLeft = new Image("ressources/player_left.png");
+		playerRight = new Image("ressources/player_right.png");
 		box = new Image("ressources/box.png");
 		door = new Image("ressources/door.png");
+		playerDoor = new Image("ressources/player_door.png");
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
@@ -60,7 +61,8 @@ public class Level extends BasicGameState {
 
 				case BLOCK : box.draw(x,y); break;
 				case DOOR : door.draw(x,y); break;
-				case PLAYER_ON_DOOR : 
+				case PLAYER_ON_DOOR :
+				    playerDoor.draw(x,y);
 					gc.getDefaultFont().drawString(100, 150, "BRAVO !!", Color.black);
 					/*game.enterState(0);*/ break;
 				}
@@ -91,11 +93,11 @@ public class Level extends BasicGameState {
 	public void keyPressed(int key, char c) {
 		Action a = null;
 		switch (key) {
-		case Input.KEY_ESCAPE : game.enterState(0); break;
-		case Input.KEY_SPACE : a = Action.TOGGLE; break;
-		case Input.KEY_LEFT : a = Action.LEFT; break;
-		case Input.KEY_RIGHT : a = Action.RIGHT; break;
-		case Input.KEY_ENTER : setLevel(id);
+    		case Input.KEY_ESCAPE : game.enterState(0); break;
+    		case Input.KEY_SPACE : a = Action.TOGGLE; break;
+    		case Input.KEY_LEFT : a = Action.LEFT; break;
+    		case Input.KEY_RIGHT : a = Action.RIGHT; break;
+    		case Input.KEY_ENTER : setLevel(id);
 		}
 		if (a != null) {
 			try {

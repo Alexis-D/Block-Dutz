@@ -56,19 +56,18 @@ public class LevelSelector extends BasicGameState {
 		} else {
 			int d = 0;
 			switch (key) {
-			case Input.KEY_UP:
-				d = -7;
-				break;
-			case Input.KEY_DOWN:
-				d = 7;
-				;
-				break;
-			case Input.KEY_LEFT:
-				d = -1;
-				break;
-			case Input.KEY_RIGHT:
-				d = 1;
-				break;
+    			case Input.KEY_UP:
+    				d = -7;
+    				break;
+    			case Input.KEY_DOWN:
+    				d = 7;
+    				break;
+    			case Input.KEY_LEFT:
+    				d = -1;
+    				break;
+    			case Input.KEY_RIGHT:
+    				d = 1;
+    				break;
 			}
 			if (selected + d >= 0 && selected + d < 7 * 5) {
 				selected += d;
