@@ -8,6 +8,9 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
+import org.newdawn.slick.state.transition.Transition;
 
 public class LevelSelector extends BasicGameState {
 	private StateBasedGame game;
@@ -52,7 +55,7 @@ public class LevelSelector extends BasicGameState {
 			} catch (SlickException e) {
 				e.printStackTrace();
 			}
-			game.enterState(1);
+			game.enterState(1, new FadeOutTransition(), new FadeInTransition());
 		} else {
 			int d = 0;
 			switch (key) {
