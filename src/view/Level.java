@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Font;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -12,6 +13,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
@@ -78,8 +81,11 @@ public class Level extends BasicGameState {
 					break;
 				case PLAYER_ON_DOOR:
 					playerDoor.draw(x, y);
-					gc.getDefaultFont().drawString(100, 150, "BRAVO !!",
-							Color.black);
+					//gc.getDefaultFont().drawString(100, 150, "BRAVO !!",
+					//		Color.black);
+
+					TrueTypeFont ttf = new TrueTypeFont(new Font(Font.SANS_SERIF, Font.PLAIN, 50), true);
+					ttf.drawString(125, 125, "Good Boy!", Color.black);
 					state = State.FINISHED;
 					break;
 				}
