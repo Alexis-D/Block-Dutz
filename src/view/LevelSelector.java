@@ -48,7 +48,7 @@ public class LevelSelector extends BasicGameState {
 				g.fillRect(64 + x * 2 * 64, 64 + y * 2 * 64, 64, 64);
 
 				g.setColor(new Color(0, 0, 0));
-				g.drawString("" + (y * 7 + x), 64 + x * 2 * 64, 64 + y * 2 * 64);
+				g.drawString("" + (y * 7 + x + 1), 64 + x * 2 * 64, 64 + y * 2 * 64);
 			}
 		}
 	    //  g.drawString("salut", 100, 100);
