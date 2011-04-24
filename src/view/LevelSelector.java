@@ -31,7 +31,7 @@ public class LevelSelector extends BasicGameState {
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
-		int i = 0;
+		int i = 0;	
     	g.setBackground(Color.black);
     	g.setFont(new TrueTypeFont(new java.awt.Font(java.awt.Font.SANS_SERIF, java.awt.Font.BOLD, 50), true));
 		g.setColor(new Color(255, 215, 0));
@@ -40,12 +40,18 @@ public class LevelSelector extends BasicGameState {
 				if (y * 7 + x == selected) {
 					g.setColor(new Color(255, 0, 0));
 				}
+				
+				else {
+					g.setColor(new Color(255, 215, 0));
+				}
+				
 				g.fillRect(64 + x * 2 * 64, 64 + y * 2 * 64, 64, 64);
-				g.setColor(new Color(255, 215, 0));
+
+				g.setColor(new Color(0, 0, 0));
+				g.drawString("" + (y * 7 + x + 1), 64 + x * 2 * 64, 64 + y * 2 * 64);
 			}
 		}
-		g.setColor(new Color(255, 0,255));
-	      g.drawString("saéÔlut", 100, 100);
+	    //  g.drawString("salut", 100, 100);
 	}
 
 	public void keyPressed(int key, char c) {
