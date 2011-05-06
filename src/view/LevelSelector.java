@@ -45,13 +45,12 @@ public class LevelSelector extends BasicGameState {
 					g.setColor(new Color(255, 215, 0));
 				}
 				
-				g.fillRect(64 + x * 2 * 64, 64 + y * 2 * 64, 64, 64);
+				g.fillRect(15 + x * 135, 15 + y * 135, 120, 120);
 
 				g.setColor(new Color(0, 0, 0));
-				g.drawString("" + (y * 7 + x + 1), 64 + x * 2 * 64, 64 + y * 2 * 64);
+				g.drawString("" + (y * 7 + x + 1), 15 + x * 135, 15 + y * 135);
 			}
 		}
-	    //  g.drawString("salut", 100, 100);
 	}
 
 	public void keyPressed(int key, char c) {
