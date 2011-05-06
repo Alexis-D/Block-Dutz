@@ -8,7 +8,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class Game extends StateBasedGame{
 
     public Game() {
-        super("Bloc Dutz");
+        super("Block Dutz");
     }
 
     public void initStatesList(GameContainer arg0) throws SlickException {
