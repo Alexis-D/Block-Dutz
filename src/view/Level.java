@@ -42,7 +42,17 @@ public class Level extends BasicGameState {
 		themes.add(new Theme("ressources/old/ground.png",
 				"ressources/old/playerLeft.png",
 				"ressources/old/playerRight.png", "ressources/old/box.png",
-				"ressources/old/door.png", "ressources/old/goxLeft.png",
+				"ressources/old/door.png", "ressources/player_door.png",
+				"ressources/old/groundbasic.png"));
+		themes.add(new Theme("ressources/old/ground.png",
+				"ressources/old/goxLeft.png",
+				"ressources/old/goxRight.png", "ressources/old/box.png",
+				"ressources/old/door.png", "ressources/player_door.png",
+				"ressources/old/groundbasic.png"));
+		themes.add(new Theme("ressources/old/ground.png",
+				"ressources/old/maxLeft.png",
+				"ressources/old/maxRight.png", "ressources/old/box.png",
+				"ressources/old/door.png", "ressources/player_door.png",
 				"ressources/old/groundbasic.png"));
 		theme = themes.next();
 	}
@@ -50,14 +60,6 @@ public class Level extends BasicGameState {
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException {
 		this.game = sbg;
-		/*
-		 * ground = new Image("ressources/ground.png"); playerLeft = new
-		 * Image("ressources/player_left.png"); playerRight = new
-		 * Image("ressources/player_right.png"); box = new
-		 * Image("ressources/box.png"); door = new Image("ressources/door.png");
-		 * playerDoor = new Image("ressources/player_door.png");
-		 */
-
 		state = State.RUNNING;
 	}
 
