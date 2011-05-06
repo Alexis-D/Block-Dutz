@@ -59,11 +59,11 @@ public class Menu extends BasicGameState {
     public void keyPressed(int key, char c) {
         if (key == Input.KEY_ENTER) {
             try {
-                game.getState(0).init(container, game);
+                game.getState(3).init(container, game);
             } catch (SlickException e) {
                 e.printStackTrace();
             }
-            game.enterState(0, new FadeOutTransition(), new FadeInTransition());
+            game.enterState(3, new FadeOutTransition(), new FadeInTransition());
         }
         else if (key == Input.KEY_UP) {
             if (this.selected > 1) {
