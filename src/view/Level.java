@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Font;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -9,28 +10,61 @@ import model.game.Box;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+
+import org.newdawn.slick.TrueTypeFont;
+
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
 
+@SuppressWarnings("deprecation")
 public class Level extends BasicGameState {
 	private StateBasedGame game;
-	private GameContainer container;
 	private int id;
 
 	private model.game.Level l = null;
-	private Image back, ground, playerLeft,playerRight, box, door;
 
-	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-		this.container = gc;
+	// private Image ground, playerLeft, playerRight, box, door, playerDoor;
+	private Themes themes = new Themes();
+	private Theme theme;
+
+	private enum State {
+		RUNNING, FINISHED
+	}
+
+	private State state;
+
+	public Level() throws SlickException {
+		themes.add(new Theme("ressources/ground.png",
+				"ressources/player_left.png", "ressources/player_right.png",
+				"ressources/box.png", "ressources/door.png",
+				"ressources/player_door.png"));
+		themes.add(new Theme("ressources/old/ground.png",
+				"ressources/old/playerLeft.png",
+				"ressources/old/playerRight.png", "ressources/old/box.png",
+				"ressources/old/door.png", "ressources/player_door.png",
+				"ressources/old/groundbasic.png"));
+		themes.add(new Theme("ressources/old/ground.png",
+				"ressources/old/goxLeft.png",
+				"ressources/old/goxRight.png", "ressources/old/box.png",
+				"ressources/old/door.png", "ressources/player_door.png",
+				"ressources/old/groundbasic.png"));
+		themes.add(new Theme("ressources/old/ground.png",
+				"ressources/old/maxLeft.png",
+				"ressources/old/maxRight.png", "ressources/old/box.png",
+				"ressources/old/door.png", "ressources/player_door.png",
+				"ressources/old/groundbasic.png"));
+		theme = themes.next();
+	}
+
+	public void init(GameContainer gc, StateBasedGame sbg)
+			throws SlickException {
 		this.game = sbg;
-		ground = new Image("ressources/ground.png");
-		playerLeft = new Image("ressources/goxLeft.png");
-		playerRight = new Image("ressources/goxRight.png");
-		box = new Image("ressources/box.png");
-		door = new Image("ressources/door.png");
+		state = State.RUNNING;
+
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
@@ -43,34 +77,48 @@ public class Level extends BasicGameState {
 		{
 			int x = 0;
 			absBox = 0;
-			for(Box m: c){
-				switch(m) {
-				case GROUND : 
-					/*if(lastLine != null && lastLine.get(absBox) == Box.GROUND)
-                    				groundBasic.draw(x,y);
-                    			else*/
-					ground.draw(x,y);
-					break;	
-				case PLAYER : 
-					if(l.getPlayer().getDirection() == -1)
-						playerLeft.draw(x,y);
+
+			for (Box m : c) {
+				switch (m) {
+				case GROUND:
+					if (lastLine != null && lastLine.get(absBox) == Box.GROUND
+							&& theme.getGroundBasic() != null)
+						theme.getGroundBasic().draw(x, y);
 					else
-						playerRight.draw(x,y); 
+						theme.getGround().draw(x, y);
+					break;
+				case PLAYER:
+					if (l.getPlayer().getDirection() == -1)
+						theme.getPlayerLeft().draw(x, y);
+					else
+						theme.getPlayerRight().draw(x, y);
 					break;
 
-				case BLOCK : box.draw(x,y); break;
-				case DOOR : door.draw(x,y); break;
-				case PLAYER_ON_DOOR : 
-					gc.getDefaultFont().drawString(100, 150, "BRAVO !!", Color.black);
-					/*game.enterState(0);*/ break;
+				case BLOCK:
+					theme.getBox().draw(x, y);
+					break;
+				case DOOR:
+					theme.getDoor().draw(x, y);
+					break;
+				case PLAYER_ON_DOOR:
+					theme.getPlayerDoor().draw(x, y);
+					// gc.getDefaultFont().drawString(100, 150, "BRAVO !!",
+					// Color.black);
+
+					TrueTypeFont ttf = new TrueTypeFont(new Font(Font.SANS_SERIF, Font.PLAIN, 50), true);
+					ttf.drawString(125, 125, "Good Boy!", Color.black);
+					state = State.FINISHED;
+					break;
+
 				}
-				x += ground.getWidth();
+				x += theme.getGround().getWidth();
 				++absBox;
 			}
 
 			lastLine = c;
 
-			y += ground.getHeight();
+			y += theme.getGround().getHeight();
+
 		}
 	}
 
@@ -89,11 +137,32 @@ public class Level extends BasicGameState {
 	public void keyPressed(int key, char c) {
 		Action a = null;
 		switch (key) {
-		case Input.KEY_ESCAPE : game.enterState(0); break;
-		case Input.KEY_SPACE : a = Action.TOGGLE; break;
-		case Input.KEY_LEFT : a = Action.LEFT; break;
-		case Input.KEY_RIGHT : a = Action.RIGHT; break;
-		case Input.KEY_ENTER : setLevel(id);
+
+		case Input.KEY_ESCAPE:
+			game.enterState(0, new FadeOutTransition(), new FadeInTransition());
+			break;
+		case Input.KEY_SPACE:
+			a = Action.TOGGLE;
+			break;
+		case Input.KEY_LEFT:
+			a = Action.LEFT;
+			break;
+		case Input.KEY_RIGHT:
+			a = Action.RIGHT;
+			break;
+		case Input.KEY_F2:
+			theme = themes.next();
+			break;
+		case Input.KEY_ENTER:
+			if (state == State.RUNNING) {
+				setLevel(id);
+			}
+
+			else {
+				game.enterState(0, new FadeOutTransition(),
+						new FadeInTransition());
+			}
+			return;
 		}
 		if (a != null) {
 			try {
