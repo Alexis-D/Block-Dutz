@@ -6,8 +6,13 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
+import org.newdawn.slick.state.transition.Transition;
 
 public class LevelSelector extends BasicGameState {
 	private StateBasedGame game;
@@ -26,22 +31,27 @@ public class LevelSelector extends BasicGameState {
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
-		int i = 0;
+		int i = 0;	
     	g.setBackground(Color.black);
-		Font f = gc.getDefaultFont();	
-
+    	g.setFont(new TrueTypeFont(new java.awt.Font(java.awt.Font.SANS_SERIF, java.awt.Font.BOLD, 50), true));
 		g.setColor(new Color(255, 215, 0));
 		for (int y = 0; y < 5; ++y) {
 			for (int x = 0; x < 7; ++x) {
 				if (y * 7 + x == selected) {
 					g.setColor(new Color(255, 0, 0));
 				}
+				
+				else {
+					g.setColor(new Color(255, 215, 0));
+				}
+				
 				g.fillRect(64 + x * 2 * 64, 64 + y * 2 * 64, 64, 64);
-				g.setColor(new Color(255, 215, 0));
-				f.drawString(64 + 20 + x * 2 * 64, 64 + 20 + y * 2 * 64, "" + ++i,
-						Color.blue);
+
+				g.setColor(new Color(0, 0, 0));
+				g.drawString("" + (y * 7 + x + 1), 64 + x * 2 * 64, 64 + y * 2 * 64);
 			}
 		}
+	    //  g.drawString("salut", 100, 100);
 	}
 
 	public void keyPressed(int key, char c) {
@@ -52,23 +62,22 @@ public class LevelSelector extends BasicGameState {
 			} catch (SlickException e) {
 				e.printStackTrace();
 			}
-			game.enterState(1);
+			game.enterState(1, new FadeOutTransition(), new FadeInTransition());
 		} else {
 			int d = 0;
 			switch (key) {
-			case Input.KEY_UP:
-				d = -7;
-				break;
-			case Input.KEY_DOWN:
-				d = 7;
-				;
-				break;
-			case Input.KEY_LEFT:
-				d = -1;
-				break;
-			case Input.KEY_RIGHT:
-				d = 1;
-				break;
+    			case Input.KEY_UP:
+    				d = -7;
+    				break;
+    			case Input.KEY_DOWN:
+    				d = 7;
+    				break;
+    			case Input.KEY_LEFT:
+    				d = -1;
+    				break;
+    			case Input.KEY_RIGHT:
+    				d = 1;
+    				break;
 			}
 			if (selected + d >= 0 && selected + d < 7 * 5) {
 				selected += d;

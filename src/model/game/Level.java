@@ -14,13 +14,7 @@ public class Level {
 	private boolean finished = false;
 	private String name;
 
-	/**
-	 * Initiate a level.
-	 * 
-	 * @param pathname
-	 *            URI to the level map file.
-	 * @throws IOException
-	 */
+
 	public Level(String pathname) throws IOException {
 		File in = new File(pathname);
 		BufferedReader br = new BufferedReader(new FileReader(in));
@@ -58,10 +52,10 @@ public class Level {
 	public void toggle() throws IllegalMovementException {
 		if (map.get(p.getY() - 1).get(p.getX()) == Box.BLOCK) {
 			down();
-			return;
 		}
-		
-		up();
+		else {
+		    up();
+		}
 	}
 
     public void action(Action a) throws Exception {
@@ -81,84 +75,84 @@ public class Level {
 		if (map.get(y).get(x + p.getDirection()) == Box.BLOCK
 				&& map.get(y - 1).get(x + p.getDirection()) == Box.EMPTY
 				&& map.get(y - 1).get(x) == Box.EMPTY) {
-			swap(x + p.getDirection(), y, x, y - 1);
+			move(x + p.getDirection(), y, x, y - 1);
 		} else {
 			throw new IllegalMovementException();
 		}
 	}
 
 	private void down() throws IllegalMovementException {
-		if (map.get(p.getY() - 1).get(p.getX() + p.getDirection()) == Box.EMPTY
-				&& map.get(p.getY() - 1).get(p.getX()) == Box.BLOCK) {
-			int y = yChute(p.getX() + p.getDirection(), p.getY() - 1);
-			swap(p.getX(), p.getY() - 1, p.getX() + p.getDirection(), y);
+	    int x = p.getX(), y = p.getY(), d = p.getDirection();
+		if (map.get(y - 1).get(x + d) == Box.EMPTY && map.get(y - 1).get(x) == Box.BLOCK) {
+			int ny = yChuteBlock(x + d, y - 1);
+			move(x, y - 1, x + d, ny);
 		} else {
 			throw new IllegalMovementException();
 		}
 	}
 
-	private void deplacement(int d) throws IllegalMovementException,
-			IndexOutOfBoundsException {
+	private void deplacement(int d) throws IllegalMovementException, IndexOutOfBoundsException {
 		if (d != p.getDirection()) { // changement direction
 			p.setDirection(d);
-		} else { // deplacement
-			int y = p.getY(), x = p.getX() + p.getDirection();
-			if ((map.get(y - 1).get(x) == Box.EMPTY || map.get(y - 1).get(x) == Box.DOOR)
-					&& (map.get(y - 1).get(p.getX()) == Box.EMPTY || map.get(
-							y - 1).get(p.getX()) == Box.BLOCK)) { // peut monter
-																	// ?
-				--y;
-			} else if (map.get(y).get(x) != Box.EMPTY
-					&& map.get(y).get(x) != Box.DOOR) { // peut à coté ?
-				throw new IllegalMovementException();
+		}
+		else { // deplacement
+			int y = p.getY(), x = p.getX();
+			int ny;
+			if (map.get(y).get(x + d).isBlocking()
+			        && (map.get(y - 1).get(x) == Box.EMPTY || map.get(y - 1).get(x) == Box.BLOCK)
+			        && !map.get(y - 1).get(x + d).isBlocking()) {
+			    ny = y - 1;
 			}
-			y = yChute(x, y); // effecue déplacement
-			if (map.get(y).get(x) == Box.DOOR) {
-				finished = true;
-				map.get(y).set(x, Box.PLAYER_ON_DOOR);
-				map.get(p.getY()).set(p.getX(), Box.EMPTY);
-			} else {
-				swap(p.getX(), p.getY(), x, y);
-
-				if (map.get(p.getY() - 1).get(p.getX()) == Box.BLOCK) { // avait
-																		// un
-																		// bloc
-																		// ?
-					/*if (map.get(p.getY() - 1).get(x) == Box.EMPTY) { // caisse
-																		// peut
-																		// se
-																		// déplacer
-						swap(p.getX(), p.getY() - 1, x, y - 1);*/
-					if(map.get(y - 1).get(x) == Box.EMPTY) {
-						swap(x, y - 1, p.getX(), p.getY() - 1);
-					} else { // caisse coincée donc tombe a la place du player
-						swap(p.getX(), p.getY() - 1, p.getX(), p.getY());
-					}
-				}
+			else if (!map.get(y).get(x + d).isBlocking()) {
+			    ny = y;
+			}
+			else {
+			    throw new IllegalMovementException();
+			}
+			int nny = yChutePlayer(x + d, ny - 1);
+			move(x, y, x + d, nny);
+			if (map.get(y - 1).get(x) == Box.BLOCK) {
+    			if (map.get(ny - 1).get(x + d) == Box.EMPTY) {
+    			    move(x, y - 1, x + d, nny - 1);
+    			}
+    			else {
+    			    move(x, y - 1, x, yChuteBlock(x, y - 1));
+    			}
 			}
 			p.setMoves(p.getMoves() + 1);
-			p.setX(x);
-			p.setY(y);
+			p.setX(x + d);
+			p.setY(nny);
 		}
 	}
 
-	private void swap(int x1, int y1, int x2, int y2) {
-		Box temporaire = map.get(y1).get(x1);
-		map.get(y1).set(x1, map.get(y2).get(x2));
-		map.get(y2).set(x2, temporaire);
+	private void move(int x1, int y1, int x2, int y2) {
+	    Box b1 = map.get(y1).get(x1), b2 = map.get(y2).get(x2);
+	    if (b1 == Box.PLAYER && b2 ==Box.DOOR) {
+	        map.get(y2).set(x2, Box.PLAYER_ON_DOOR);
+	        finished = true;
+	    }
+	    else {
+	        map.get(y2).set(x2, map.get(y1).get(x1));
+	    }
+		map.get(y1).set(x1, Box.EMPTY);
 	}
-
-	private int yChute(int x, int y) {
-		while (map.get(y + 1).get(x) == Box.EMPTY) {
-			++y;
-		}
-		
-		if(map.get(y + 1).get(x) == Box.DOOR) {
-			++y;
-		}
-		
-		return y;
-	}
+	
+    private int yChutePlayer(int x, int y) {
+        while (!map.get(y + 1).get(x).isBlocking()) {
+            ++y;
+            if (map.get(y).get(x) == Box.DOOR) {
+                break;
+            }
+        }
+        return y;
+    }
+    
+    private int yChuteBlock(int x, int y) {
+        while (map.get(y + 1).get(x) == Box.EMPTY) {
+            ++y;
+        }
+        return y;
+    }
 
 	public boolean isFinished() {
 		return finished;
