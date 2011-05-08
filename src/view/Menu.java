@@ -29,7 +29,7 @@ public class Menu extends BasicGameState {
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         g.setBackground(Color.black);
         g.setFont(new TrueTypeFont(new java.awt.Font(java.awt.Font.SANS_SERIF, java.awt.Font.BOLD, 50), true));
-        
+
         for (int i = 0; i < 4; ++i) {
             if (i == this.selected) {
                 g.setColor(new Color(255, 255, 255));
@@ -39,6 +39,9 @@ public class Menu extends BasicGameState {
             }
             g.fillRect(15, 15 * (i + 1) + 157 * i, 930, 157);
         }
+
+        g.setColor(new Color(255, 255, 255));
+        g.drawString("Block Dutz", 335, 50);
         
         String[] texte = {"Jouer", "Scores", "Quitter"};
         for (int i = 1; i < 4; ++i) {
@@ -57,23 +60,34 @@ public class Menu extends BasicGameState {
     }
 
     public void keyPressed(int key, char c) {
-        if (key == Input.KEY_ENTER) {
-            try {
-                game.getState(3).init(container, game);
-            } catch (SlickException e) {
-                e.printStackTrace();
-            }
-            game.enterState(3, new FadeOutTransition(), new FadeInTransition());
-        }
-        else if (key == Input.KEY_UP) {
-            if (this.selected > 1) {
-                --this.selected;
-            }
-        }
-        else if (key == Input.KEY_DOWN) {
-            if (this.selected < 3) {
-                ++this.selected;
-            }
-        }
+    	switch(key){
+	    	case Input.KEY_ENTER:
+	    		if(selected == 1){
+				    try {
+				    game.getState(3).init(container, game);
+				    } catch (SlickException e) {
+				        e.printStackTrace();
+				    }
+				    game.enterState(3, new FadeOutTransition(), new FadeInTransition());
+	    		}
+	    		else if(selected == 3){
+	    			container.exit();
+	    		}
+			    break;
+		            
+	    	case Input.KEY_UP:
+		        if (this.selected > 1) {
+		           --this.selected;
+		        }
+		        break;
+		            
+	    	case Input.KEY_DOWN:
+		        if (this.selected < 3) {
+		            ++this.selected;
+		        }
+		        break;
+		    
+		        
+	    }
     }
 }

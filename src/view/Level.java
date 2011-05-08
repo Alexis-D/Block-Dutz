@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import model.game.Action;
 import model.game.Box;
+import model.game.Theme;
+import model.game.Themes;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -30,7 +32,7 @@ public class Level extends BasicGameState {
 	// private Image ground, playerLeft, playerRight, box, door, playerDoor;
 	private Themes themes = new Themes();
 	private Theme theme;
-
+	
 	private enum State {
 		RUNNING, FINISHED
 	}

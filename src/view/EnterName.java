@@ -43,14 +43,26 @@ public class EnterName extends BasicGameState {
     }
     
     public void keyPressed(int key, char c) {
-        if (key == Input.KEY_ENTER) {
-            try {
-                game.getState(0).init(container, game);
-            } catch (SlickException e) {
-                e.printStackTrace();
-            }
-            game.enterState(0, new FadeOutTransition(), new FadeInTransition());
-        }
+    	
+    	switch(key){
+	    	case Input.KEY_ENTER: 
+	            try {
+	                game.getState(0).init(container, game);
+	            } catch (SlickException e) {
+	                e.printStackTrace();
+	            }
+	            game.enterState(0, new FadeOutTransition(), new FadeInTransition());
+	            break;
+	            
+	    	case Input.KEY_ESCAPE:
+	    		try {
+	                game.getState(10).init(container, game);
+	            } catch (SlickException e) {
+	                e.printStackTrace();
+	            }
+	            game.enterState(10, new FadeOutTransition(), new FadeInTransition());
+	            break;
+    	}
     }
     
 	@Override
