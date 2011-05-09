@@ -17,6 +17,7 @@ public class Menu extends BasicGameState {
     private StateBasedGame game;
     private GameContainer container;
     private Integer selected = 1;
+    private Sound s;
     
     public int getID() {
         return 10;
@@ -25,6 +26,7 @@ public class Menu extends BasicGameState {
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         this.container = gc;
         this.game = sbg;
+        s = new Sound("ressources/sounds/menu1.ogg");
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
@@ -81,12 +83,14 @@ public class Menu extends BasicGameState {
 		            
 	    	case Input.KEY_UP:
 		        if (this.selected > 1) {
+		        	s.play();
 		           --this.selected;
 		        }
 		        break;
 		            
 	    	case Input.KEY_DOWN:
 		        if (this.selected < 3) {
+		        	s.play();
 		            ++this.selected;
 		        }
 		        break;
