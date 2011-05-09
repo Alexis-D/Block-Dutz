@@ -37,9 +37,11 @@ public class EnterName extends BasicGameState {
     	g.setColor(Color.white);
     	g.setFont(new TrueTypeFont(new java.awt.Font(java.awt.Font.SANS_SERIF, java.awt.Font.BOLD, 40), true));
     	g.drawString("Entre ton nom :", 100, 100);
-    	field.render(gc, g);
-    	field.setBackgroundColor(Color.blue);
+    
+    	field.setBackgroundColor(Color.white);
+
     	field.setFocus(true);
+    	
     }
     
     public void keyPressed(int key, char c) {
@@ -55,11 +57,6 @@ public class EnterName extends BasicGameState {
 	            break;
 	            
 	    	case Input.KEY_ESCAPE:
-	    		try {
-	                game.getState(10).init(container, game);
-	            } catch (SlickException e) {
-	                e.printStackTrace();
-	            }
 	            game.enterState(10, new FadeOutTransition(), new FadeInTransition());
 	            break;
     	}
@@ -67,6 +64,6 @@ public class EnterName extends BasicGameState {
     
 	@Override
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException {
-		// TODO Auto-generated method stub
+
 	}
 }

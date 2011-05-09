@@ -14,6 +14,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 
 import org.newdawn.slick.TrueTypeFont;
 
@@ -26,7 +27,8 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 public class Level extends BasicGameState {
 	private StateBasedGame game;
 	private int id;
-
+	private Sound s1, s2;
+	
 	private model.game.Level l = null;
 
 	// private Image ground, playerLeft, playerRight, box, door, playerDoor;
@@ -64,6 +66,8 @@ public class Level extends BasicGameState {
 
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException {
+		s1 = new Sound("ressources/sounds/winner.ogg");
+		s2 = new Sound("ressources/sounds/bloquer.ogg");
 		this.game = sbg;
 		state = State.RUNNING;
 
@@ -124,7 +128,16 @@ public class Level extends BasicGameState {
 		}
 	}
 
-	public void update(GameContainer gc, StateBasedGame sbg, int arg2) throws SlickException { }
+
+	public void update(GameContainer gc, StateBasedGame sbg, int arg2) throws SlickException { 
+		switch(state)
+		{
+		case FINISHED: 
+			if(!s1.playing())
+				s1.play();
+			break;
+		}
+	}
 
 	public void setLevel(Integer level){
 		id = level;
@@ -141,6 +154,7 @@ public class Level extends BasicGameState {
 		switch (key) {
 
 		case Input.KEY_ESCAPE:
+			s1.stop();
 			game.enterState(0, new FadeOutTransition(), new FadeInTransition());
 			break;
 		case Input.KEY_SPACE:
@@ -170,6 +184,7 @@ public class Level extends BasicGameState {
 			try {
 				l.action(a);
 			} catch (Exception e) {
+				s2.play();
 			}
 		}
 	}
