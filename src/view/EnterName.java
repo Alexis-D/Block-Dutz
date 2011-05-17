@@ -5,6 +5,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.gui.AbstractComponent;
+import org.newdawn.slick.gui.ComponentListener;
 import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -25,33 +27,30 @@ public class EnterName extends BasicGameState {
     	this.game = sbg;
     	this.container = gc;
     	field = new TextField(gc, new TrueTypeFont(new java.awt.Font(java.awt.Font.SANS_SERIF, java.awt.Font.BOLD, 40), true)
-    				, 100, 200, 600, 100);
-    	field.setBackgroundColor(Color.white);
-    	field.setBorderColor(Color.white);
+    				, 100, 200, 600, 100, new ComponentListener(){
+    		public void componentActivated(AbstractComponent source) {
+    			System.out.println("plop");
+    			game.enterState(0, new FadeOutTransition(), new FadeInTransition());
+    			
+    		}
+    	});
     }
  
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
+    	field.setBackgroundColor(Color.white);
+    	field.setTextColor(Color.blue);
+    	field.render(gc, g);
     	g.setBackground(Color.blue);
     	g.setColor(Color.white);
     	g.setFont(new TrueTypeFont(new java.awt.Font(java.awt.Font.SANS_SERIF, java.awt.Font.BOLD, 40), true));
     	g.drawString("Entre ton nom :", 100, 100);
-    	field.setText("plop");
     	field.setFocus(true);
     	
     }
     
     public void keyPressed(int key, char c) {
         switch(key) {
-	    	case Input.KEY_UP: 
-	            try {
-	                game.getState(0).init(container, game);
-	            } catch (SlickException e) {
-	                e.printStackTrace();
-	            }
-	            game.enterState(0, new FadeOutTransition(), new FadeInTransition());
-	            break;
-	            
 	    	case Input.KEY_ESCAPE:
 	            game.enterState(10, new FadeOutTransition(), new FadeInTransition());
 	            break;
