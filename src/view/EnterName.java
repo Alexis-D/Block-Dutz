@@ -7,6 +7,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.gui.AbstractComponent;
+import org.newdawn.slick.gui.ComponentListener;
 import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.GameState;
@@ -29,6 +31,7 @@ public class EnterName extends BasicGameState {
     	this.container = gc;
     	field = new TextField(gc, new TrueTypeFont(new java.awt.Font(java.awt.Font.SANS_SERIF, java.awt.Font.BOLD, 40), true)
     				, 100, 200, 600, 100);
+    	field.setFocus(false);
     }
  
     @Override
@@ -43,7 +46,7 @@ public class EnterName extends BasicGameState {
     }
     
     public void keyPressed(int key, char c) {
-        if (key == Input.KEY_ENTER) {
+        if (key == Input.KEY_UP) {
             try {
                 game.getState(0).init(container, game);
             } catch (SlickException e) {
