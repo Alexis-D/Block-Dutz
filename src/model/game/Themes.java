@@ -1,4 +1,4 @@
-package view;
+package model.game;
 
 import java.util.ArrayList;
 

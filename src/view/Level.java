@@ -6,13 +6,18 @@ import java.util.ArrayList;
 
 import model.game.Action;
 import model.game.Box;
+import model.game.Theme;
+import model.game.Themes;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
+
 import org.newdawn.slick.TrueTypeFont;
+
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
@@ -22,12 +27,14 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 public class Level extends BasicGameState {
 	private StateBasedGame game;
 	private int id;
-
+	private Sound s1, s2;
+	
 	private model.game.Level l = null;
+
 	// private Image ground, playerLeft, playerRight, box, door, playerDoor;
 	private Themes themes = new Themes();
 	private Theme theme;
-
+	
 	private enum State {
 		RUNNING, FINISHED
 	}
@@ -59,20 +66,24 @@ public class Level extends BasicGameState {
 
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException {
+		s1 = new Sound("ressources/sounds/winner.ogg");
+		s2 = new Sound("ressources/sounds/bloquer.ogg");
 		this.game = sbg;
 		state = State.RUNNING;
+
 	}
 
-	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
-			throws SlickException {
+	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		g.setBackground(new Color(255, 232, 196));
 		int y = 0;
 		ArrayList<Box> lastLine = null;
 		int absBox = 0;
 
-		for (ArrayList<Box> c : l.getMap()) {
+		for(ArrayList<Box> c: l.getMap())
+		{
 			int x = 0;
 			absBox = 0;
+
 			for (Box m : c) {
 				switch (m) {
 				case GROUND:
@@ -100,26 +111,35 @@ public class Level extends BasicGameState {
 					// gc.getDefaultFont().drawString(100, 150, "BRAVO !!",
 					// Color.black);
 
-					TrueTypeFont ttf = new TrueTypeFont(new Font(
-							Font.SANS_SERIF, Font.PLAIN, 50), true);
+					TrueTypeFont ttf = new TrueTypeFont(new Font(Font.SANS_SERIF, Font.PLAIN, 50), true);
 					ttf.drawString(125, 125, "Good Boy!", Color.black);
 					state = State.FINISHED;
 					break;
+
 				}
 				x += theme.getGround().getWidth();
 				++absBox;
 			}
 
 			lastLine = c;
+
 			y += theme.getGround().getHeight();
+
 		}
 	}
 
-	public void update(GameContainer gc, StateBasedGame sbg, int arg2)
-			throws SlickException {
+
+	public void update(GameContainer gc, StateBasedGame sbg, int arg2) throws SlickException { 
+		switch(state)
+		{
+		case FINISHED: 
+			if(!s1.playing())
+				s1.play();
+			break;
+		}
 	}
 
-	public void setLevel(Integer level) {
+	public void setLevel(Integer level){
 		id = level;
 
 		try {
@@ -132,7 +152,9 @@ public class Level extends BasicGameState {
 	public void keyPressed(int key, char c) {
 		Action a = null;
 		switch (key) {
+
 		case Input.KEY_ESCAPE:
+			s1.stop();
 			game.enterState(0, new FadeOutTransition(), new FadeInTransition());
 			break;
 		case Input.KEY_SPACE:
@@ -162,6 +184,7 @@ public class Level extends BasicGameState {
 			try {
 				l.action(a);
 			} catch (Exception e) {
+				s2.play();
 			}
 		}
 	}

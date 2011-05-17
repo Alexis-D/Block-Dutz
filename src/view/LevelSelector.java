@@ -62,6 +62,8 @@ public class LevelSelector extends BasicGameState {
 				e.printStackTrace();
 			}
 			game.enterState(1, new FadeOutTransition(), new FadeInTransition());
+		} else if (key == Input.KEY_ESCAPE) {
+			game.enterState(10, new FadeOutTransition(), new FadeInTransition());
 		} else {
 			int d = 0;
 			switch (key) {
