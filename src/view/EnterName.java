@@ -17,15 +17,12 @@ public class EnterName extends BasicGameState {
  
 	private TextField field;
 	private StateBasedGame game;
-	private GameContainer container;
-    
-    public int getID() {
+	public int getID() {
         return 3;
     }
     
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
     	this.game = sbg;
-    	this.container = gc;
     	field = new TextField(gc, new TrueTypeFont(new java.awt.Font(java.awt.Font.SANS_SERIF, java.awt.Font.BOLD, 40), true)
     				, 100, 200, 600, 100, new ComponentListener(){
     		public void componentActivated(AbstractComponent source) {
