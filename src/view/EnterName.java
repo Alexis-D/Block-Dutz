@@ -29,9 +29,7 @@ public class EnterName extends BasicGameState {
     	field = new TextField(gc, new TrueTypeFont(new java.awt.Font(java.awt.Font.SANS_SERIF, java.awt.Font.BOLD, 40), true)
     				, 100, 200, 600, 100, new ComponentListener(){
     		public void componentActivated(AbstractComponent source) {
-    			System.out.println("plop");
     			game.enterState(0, new FadeOutTransition(), new FadeInTransition());
-    			
     		}
     	});
     }
@@ -58,6 +56,5 @@ public class EnterName extends BasicGameState {
     }
 	@Override
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException {
-
 	}
 }
