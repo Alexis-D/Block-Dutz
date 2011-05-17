@@ -29,9 +29,8 @@ public class EnterName extends BasicGameState {
     	field = new TextField(gc, new TrueTypeFont(new java.awt.Font(java.awt.Font.SANS_SERIF, java.awt.Font.BOLD, 40), true)
     				, 100, 200, 600, 100, new ComponentListener(){
     		public void componentActivated(AbstractComponent source) {
-    			System.out.println("plop");
-    			game.enterState(0, new FadeOutTransition(), new FadeInTransition());
-    			
+    			field.deactivate();
+    			game.enterState(0);
     		}
     	});
     }
@@ -44,9 +43,8 @@ public class EnterName extends BasicGameState {
     	g.setBackground(Color.blue);
     	g.setColor(Color.white);
     	g.setFont(new TrueTypeFont(new java.awt.Font(java.awt.Font.SANS_SERIF, java.awt.Font.BOLD, 40), true));
-    	g.drawString("Entre ton nom :", 100, 100);
-    	field.setFocus(true);
-    	
+    	g.drawString("Entre ton nom :", 100, 100); 
+    	field.setFocus(true);   	
     }
     
     public void keyPressed(int key, char c) {
