@@ -60,7 +60,6 @@ public class Level extends BasicGameState {
 		s2 = new Sound("ressources/sounds/bloquer.ogg");
 		this.game = sbg;
 		state = State.RUNNING;
-
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
