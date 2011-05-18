@@ -6,6 +6,7 @@ public class Player {
 	private int y;
 	private int moves = 0;
 	private int direction = -1;
+	public static String name;
 	
 	public Player(int x, int y) {
 		this.x = x;

@@ -10,10 +10,20 @@ public class Database {
 	private Connection conn;
 	private final String pathToDb = "database/scores.db";
 
-	public Database() throws ClassNotFoundException, SQLException {
-		Class.forName("org.sqlite.JDBC");
+	public Database() {
+		try {
+			Class.forName("org.sqlite.JDBC");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-		conn = DriverManager.getConnection("jdbc:sqlite:" + pathToDb);
+		try {
+			conn = DriverManager.getConnection("jdbc:sqlite:" + pathToDb);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**

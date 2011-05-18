@@ -1,4 +1,7 @@
 package view;
+import model.database.Database;
+import model.game.Player;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -14,9 +17,9 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
  
 public class EnterName extends BasicGameState {
- 
 	private TextField field;
 	private StateBasedGame game;
+	
 	public int getID() {
         return 3;
     }
@@ -27,6 +30,7 @@ public class EnterName extends BasicGameState {
     				, 100, 200, 600, 100, new ComponentListener(){
     		public void componentActivated(AbstractComponent source) {
     			field.deactivate();
+    			Player.name = field.getText();
     			game.enterState(0);
     		}
     	});

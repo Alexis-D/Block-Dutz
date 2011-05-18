@@ -2,10 +2,15 @@ package view;
 
 import java.awt.Font;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.xml.crypto.Data;
+
+import model.database.Database;
 import model.game.Action;
 import model.game.Box;
+import model.game.Player;
 import model.game.Theme;
 import model.game.Themes;
 
@@ -175,6 +180,14 @@ public class Level extends BasicGameState {
 			}
 
 			else {
+				Database db = new Database();
+				try {
+					db.insertScore(Player.name, id, l.getNbMoves());
+					db.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				game.enterState(0, new FadeOutTransition(),
 						new FadeInTransition());
 			}
