@@ -7,12 +7,12 @@ public class Player {
 	private int moves = 0;
 	private int direction = -1;
 	public static String name;
-	
+
 	public Player(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
-	
+
 	public int getMaxBlock() {
 		return maxBlock;
 	}
@@ -48,7 +48,7 @@ public class Player {
 	public void setMoves(int moves) {
 		this.moves = moves;
 	}
-	
+
 	public int getMoves() {
 		return moves;
 	}

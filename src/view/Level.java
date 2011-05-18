@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.xml.crypto.Data;
-
 import model.database.Database;
 import model.game.Action;
 import model.game.Box;
@@ -20,9 +18,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
-
 import org.newdawn.slick.TrueTypeFont;
-
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
@@ -33,13 +29,13 @@ public class Level extends BasicGameState {
 	private StateBasedGame game;
 	private int id;
 	private Sound s1, s2;
-	
+
 	private model.game.Level l = null;
 
 	// private Image ground, playerLeft, playerRight, box, door, playerDoor;
 	private Themes themes = new Themes();
 	private Theme theme;
-	
+
 	private enum State {
 		RUNNING, FINISHED
 	}
@@ -62,14 +58,14 @@ public class Level extends BasicGameState {
 		state = State.RUNNING;
 	}
 
-	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
+	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
+			throws SlickException {
 		g.setBackground(new Color(255, 232, 196));
 		int y = 0;
 		ArrayList<Box> lastLine = null;
 		int absBox = 0;
 
-		for(ArrayList<Box> c: l.getMap())
-		{
+		for (ArrayList<Box> c : l.getMap()) {
 			int x = 0;
 			absBox = 0;
 
@@ -97,10 +93,9 @@ public class Level extends BasicGameState {
 					break;
 				case PLAYER_ON_DOOR:
 					theme.getPlayerDoor().draw(x, y);
-					// gc.getDefaultFont().drawString(100, 150, "BRAVO !!",
-					// Color.black);
 
-					TrueTypeFont ttf = new TrueTypeFont(new Font(Font.SANS_SERIF, Font.PLAIN, 50), true);
+					TrueTypeFont ttf = new TrueTypeFont(new Font(
+							Font.SANS_SERIF, Font.PLAIN, 50), true);
 					ttf.drawString(125, 125, "Good Boy!", Color.black);
 					state = State.FINISHED;
 					break;
@@ -111,24 +106,22 @@ public class Level extends BasicGameState {
 			}
 
 			lastLine = c;
-
 			y += theme.getGround().getHeight();
 
 		}
 	}
 
-
-	public void update(GameContainer gc, StateBasedGame sbg, int arg2) throws SlickException { 
-		switch(state)
-		{
-		case FINISHED: 
-			if(!s1.playing())
+	public void update(GameContainer gc, StateBasedGame sbg, int arg2)
+			throws SlickException {
+		switch (state) {
+		case FINISHED:
+			if (!s1.playing())
 				s1.play();
 			break;
 		}
 	}
 
-	public void setLevel(Integer level){
+	public void setLevel(Integer level) {
 		id = level;
 
 		try {
@@ -169,7 +162,6 @@ public class Level extends BasicGameState {
 					db.insertScore(Player.name, id, l.getNbMoves());
 					db.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				game.enterState(0, new FadeOutTransition(),

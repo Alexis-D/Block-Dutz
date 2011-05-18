@@ -45,7 +45,8 @@ public class Database {
 	}
 
 	/**
-	 * @return Le score de name au niveau level.
+	 * @return Le score de name au niveau level ou Integer.MAX_VALUE si aucun
+	 *         résultat.
 	 */
 	public int getScore(String name, int level) throws SQLException {
 		PreparedStatement ps = conn
@@ -132,46 +133,4 @@ public class Database {
 	public void close() throws SQLException {
 		conn.close();
 	}
-
-	/* tests */
-	/*
-	public static void main(String[] args) throws ClassNotFoundException,
-			SQLException {
-		Database db = new Database();
-		Random r = new Random();
-
-		for (int i = 0; i < 4; ++i) {
-			for (int j = 0; j < 10; ++j) {
-				switch (r.nextInt() % 4) {
-				case 0:
-					db.insertScore("max", i, r.nextInt(32));
-					break;
-				case 1:
-					db.insertScore("alexis", i, r.nextInt(32));
-					break;
-				case 2:
-					db.insertScore("grég", i, r.nextInt(32));
-					break;
-				case 3:
-					db.insertScore("guillaume", i, r.nextInt(32));
-					break;
-				}
-			}
-		}
-
-		for (int i = 0; i < 4; ++i) {
-			ResultSet rs = db.getClassement(i);
-
-			System.out.println("Level #" + i);
-
-			while (rs.next()) {
-				System.out.println(db.getRank(rs.getString("name"), i) + ". "
-						+ rs.getInt("nbCoups") + " -> " + rs.getString("name"));
-			}
-
-			System.out.println();
-		}
-
-		db.close();
-	}*/
 }
