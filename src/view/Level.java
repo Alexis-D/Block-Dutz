@@ -51,21 +51,6 @@ public class Level extends BasicGameState {
 				"ressources/player_left.png", "ressources/player_right.png",
 				"ressources/box.png", "ressources/door.png",
 				"ressources/player_door.png"));
-		themes.add(new Theme("ressources/old/ground.png",
-				"ressources/old/playerLeft.png",
-				"ressources/old/playerRight.png", "ressources/old/box.png",
-				"ressources/old/door.png", "ressources/player_door.png",
-				"ressources/old/groundbasic.png"));
-		themes.add(new Theme("ressources/old/ground.png",
-				"ressources/old/goxLeft.png",
-				"ressources/old/goxRight.png", "ressources/old/box.png",
-				"ressources/old/door.png", "ressources/player_door.png",
-				"ressources/old/groundbasic.png"));
-		themes.add(new Theme("ressources/old/ground.png",
-				"ressources/old/maxLeft.png",
-				"ressources/old/maxRight.png", "ressources/old/box.png",
-				"ressources/old/door.png", "ressources/player_door.png",
-				"ressources/old/groundbasic.png"));
 		theme = themes.next();
 	}
 
