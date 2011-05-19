@@ -86,6 +86,7 @@ public class Menu extends BasicGameState {
 	public void keyPressed(int key, char c) {
 		switch (key) {
 		case Input.KEY_ENTER:
+			s1.stop();
 			if (selected == 1) {
 				try {
 					game.getState(3).init(container, game);

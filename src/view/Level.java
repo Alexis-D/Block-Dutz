@@ -29,6 +29,7 @@ public class Level extends BasicGameState {
 	private StateBasedGame game;
 	private int id;
 	private Sound s1, s2;
+	private Sound h1;
 
 	private model.game.Level l = null;
 
@@ -54,6 +55,7 @@ public class Level extends BasicGameState {
 			throws SlickException {
 		s1 = new Sound("ressources/sounds/winner.ogg");
 		s2 = new Sound("ressources/sounds/bloquer.ogg");
+		h1 = new Sound("ressources/sounds/f1sound.ogg");
 		this.game = sbg;
 		state = State.RUNNING;
 	}
@@ -94,9 +96,9 @@ public class Level extends BasicGameState {
 				case PLAYER_ON_DOOR:
 					theme.getPlayerDoor().draw(x, y);
 
-					TrueTypeFont ttf = new TrueTypeFont(new Font(
+					/*TrueTypeFont ttf = new TrueTypeFont(new Font(
 							Font.SANS_SERIF, Font.PLAIN, 50), true);
-					ttf.drawString(125, 125, "Good Boy!", Color.black);
+					ttf.drawString(125, 125, "Good Boy!", Color.black);*/
 					state = State.FINISHED;
 					break;
 
@@ -147,6 +149,9 @@ public class Level extends BasicGameState {
 			break;
 		case Input.KEY_RIGHT:
 			a = Action.RIGHT;
+			break;
+		case Input.KEY_F1:
+			h1.play();
 			break;
 		case Input.KEY_F2:
 			theme = themes.next();
