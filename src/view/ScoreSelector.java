@@ -52,7 +52,6 @@ import org.newdawn.slick.state.transition.Transition;
                 g.setColor(new Color(0, 0, 0));
                 g.drawString("" + (y * 8 + x + 1), 10 + x * (lg + 10), 10 + y * (ht + 10));
 			
-
 		}
 	}
 
@@ -92,7 +91,7 @@ import org.newdawn.slick.state.transition.Transition;
 	    				d = 1;
 	    				break;		
 				}
-				if (selected + d >= 0 && selected + d < 7 * 5) {
+				if (selected + d >= 0 && selected + d < 6 * 8) {
 					selected += d;
 				}
 			}
