@@ -47,14 +47,6 @@ public class Level extends BasicGameState {
 				"ressources/player_left.png", "ressources/player_right.png",
 				"ressources/box.png", "ressources/door.png",
 				"ressources/player_door.png"));
-		themes.add(new Theme("ressources/skin2/ground.png",
-				"ressources/skin2/player_left.png", "ressources/skin2/player_right.png",
-				"ressources/skin2/box.png", "ressources/skin2/door.png",
-				"ressources/skin2/player_door.png"));
-		themes.add(new Theme("ressources/old/ground.png",
-				"ressources/player_left.png", "ressources/player_right.png",
-				"ressources/old/box.png", "ressources/old/door.png",
-				"ressources/player_door.png", "ressources/old/groundbasic.png"));
 		theme = themes.next();
 	}
 
@@ -102,9 +94,9 @@ public class Level extends BasicGameState {
 				case PLAYER_ON_DOOR:
 					theme.getPlayerDoor().draw(x, y);
 
-					/*TrueTypeFont ttf = new TrueTypeFont(new Font(
+					TrueTypeFont ttf = new TrueTypeFont(new Font(
 							Font.SANS_SERIF, Font.PLAIN, 50), true);
-					ttf.drawString(125, 125, "Good Boy!", Color.black);*/
+					ttf.drawString(125, 125, "Good Boy!", Color.black);
 					state = State.FINISHED;
 					break;
 
