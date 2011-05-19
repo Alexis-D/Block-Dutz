@@ -176,7 +176,6 @@ public class Level extends BasicGameState {
 				}
                 try {
                     int f = db.nbLevelsFinished(Player.name);
-                    System.out.println(f);
                     if (LevelSelector.selected + 1 < (f / 8 + 1)) {
                         LevelSelector.selected += LevelSelector.selected == LevelSelector.nbLevels ? 0
                                 : 1;
