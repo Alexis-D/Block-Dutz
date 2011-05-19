@@ -125,6 +125,15 @@ public class Database {
 		return ps.executeQuery();
 	}
 
+    public int nbLevelsFinished(String name) throws SQLException {
+        PreparedStatement ps = conn
+                .prepareStatement("SELECT COUNT(level) as nb FROM scores WHERE name=?;");
+        ps.setString(1, name);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        return rs.getInt("nb");
+    }
+    
 	/**
 	 * Ferme la BD.
 	 */

@@ -15,6 +15,8 @@ public class Game extends StateBasedGame {
 		addState(new LevelSelector());
 		addState(new Level());
 		addState(new EnterName());
+		addState(new ScoreSelector());
+		addState(new Scores());
 	}
 
 	public static void main(String[] arguments) {

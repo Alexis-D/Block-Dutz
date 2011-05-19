@@ -99,6 +99,14 @@ public class Menu extends BasicGameState {
 				game.enterState(3, new FadeOutTransition(),
 						new FadeInTransition());
 			} else if (selected == 2) {
+				try {
+					game.getState(7).init(container, game);
+				} catch (SlickException e) {
+					e.printStackTrace();
+				}
+				game.enterState(7, new FadeOutTransition(),
+						new FadeInTransition());
+				
 			} else if (selected == 3) {
 				container.exit();
 			}
