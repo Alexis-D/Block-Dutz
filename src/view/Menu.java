@@ -45,11 +45,11 @@ public class Menu extends BasicGameState {
 			} else {
 				g.setColor(new Color(0, 0, 255));
 			}
-			g.fillRect(15, 15 * (i + 1) + 157 * i, 930, 157);
+			g.fillRect(10, 10 * (i + 1) + 137 * i, 780, 137);
 		}
 
 		g.setColor(new Color(255, 255, 255));
-		g.drawString("Block Dutz", 335, 50);
+		g.drawString("Block Dutz", 300, 50);
 
 		String[] texte = { "Jouer", "Scores", "Quitter" };
 		for (int i = 1; i < 4; ++i) {
@@ -58,7 +58,7 @@ public class Menu extends BasicGameState {
 			} else {
 				g.setColor(new Color(255, 255, 255));
 			}
-			g.drawString(texte[i - 1], 400, 30 * (i + 1) + 157 * i);
+			g.drawString(texte[i - 1], 300, 10 * (i + 1) + 137 * i + 30);
 		}
 	}
 

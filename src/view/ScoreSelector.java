@@ -5,6 +5,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -16,11 +17,13 @@ public class ScoreSelector extends BasicGameState {
 	private StateBasedGame game;
 	private GameContainer container;
 	private Integer selected = 0;
+	private Sound s;
 
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException {
 		this.container = gc;
 		this.game = sbg;
+		s = new Sound("ressources/sounds/menu1.ogg");
 	}
 
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
@@ -33,22 +36,26 @@ public class ScoreSelector extends BasicGameState {
 		g.setFont(new TrueTypeFont(new java.awt.Font(java.awt.Font.SANS_SERIF,
 				java.awt.Font.BOLD, 50), true));
 		g.setColor(new Color(255, 215, 0));
-		for (int y = 0; y < 5; ++y) {
-			for (int x = 0; x < 7; ++x) {
-				if (y * 7 + x == selected) {
+
+		for (int y = 0; y < 6; ++y) {
+
+			for (int x = 0; x < 8; ++x) {
+				if (y * 8 + x == selected) {
 					g.setColor(new Color(255, 0, 0));
-				}
+				} else
+					g.setColor(new Color(255, 234, 0));
 
-				else {
-					g.setColor(new Color(255, 215, 0));
-				}
-
-				g.fillRect(15 + x * 135, 15 + y * 135, 120, 120);
+				float lg = 88.75f;
+				float ht = 88.33f;
+				g.fillRect(10 + x * (lg + 10), 10 + y * (ht + 10), lg, ht);
 
 				g.setColor(new Color(0, 0, 0));
-				g.drawString("" + (y * 7 + x + 1), 15 + x * 135, 15 + y * 135);
+				g.drawString("" + (y * 8 + x + 1), 10 + x * (lg + 10), 10 + y
+						* (ht + 10));
+
 			}
 		}
+
 	}
 
 	public void keyPressed(int key, char c) {
@@ -63,6 +70,7 @@ public class ScoreSelector extends BasicGameState {
 			game.enterState(8, new FadeOutTransition(), new FadeInTransition());
 		} else {
 			int d = 0;
+			s.play();
 			switch (key) {
 			case Input.KEY_ESCAPE:
 				try {
@@ -73,20 +81,24 @@ public class ScoreSelector extends BasicGameState {
 				game.enterState(10, new FadeOutTransition(),
 						new FadeInTransition());
 
+			case Input.KEY_K:
 			case Input.KEY_UP:
-				d = -7;
+				d = -8;
 				break;
+			case Input.KEY_J:
 			case Input.KEY_DOWN:
-				d = 7;
+				d = 8;
 				break;
+			case Input.KEY_H:
 			case Input.KEY_LEFT:
 				d = -1;
 				break;
+			case Input.KEY_L:
 			case Input.KEY_RIGHT:
 				d = 1;
 				break;
 			}
-			if (selected + d >= 0 && selected + d < 7 * 5) {
+			if (selected + d >= 0 && selected + d < 6 * 8) {
 				selected += d;
 			}
 		}

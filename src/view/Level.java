@@ -26,7 +26,7 @@ public class Level extends BasicGameState {
 	private StateBasedGame game;
 	private int id;
 	private Sound s1, s2;
-	private Sound h1;
+	private Sound h1, b1;
 
 	private model.game.Level l = null;
 
@@ -41,6 +41,11 @@ public class Level extends BasicGameState {
 	private State state;
 
 	public Level() throws SlickException {
+		themes.add(new Theme("ressources/old/ground.png",
+				"ressources/old/player_left.png", "ressources/old/player_right.png",
+				"ressources/old/box.png", "ressources/old/nid.png",
+				"ressources/old/player_door.png", "ressources/old/groundbasic.png"));
+		
 		themes.add(new Theme("ressources/ground.png",
 				"ressources/player_left.png", "ressources/player_right.png",
 				"ressources/box.png", "ressources/door.png",
@@ -53,6 +58,7 @@ public class Level extends BasicGameState {
 		s1 = new Sound("ressources/sounds/winner.ogg");
 		s2 = new Sound("ressources/sounds/bloquer.ogg");
 		h1 = new Sound("ressources/sounds/f1sound.ogg");
+		b1 = new Sound("ressources/sounds/bruitPas.ogg");
 		this.game = sbg;
 		state = State.RUNNING;
 	}
@@ -171,7 +177,6 @@ public class Level extends BasicGameState {
 				}
                 try {
                     int f = db.nbLevelsFinished(Player.name);
-                    System.out.println(f);
                     if (LevelSelector.selected + 1 < (f / 8 + 1)) {
                         LevelSelector.selected += LevelSelector.selected == LevelSelector.nbLevels ? 0
                                 : 1;
@@ -193,6 +198,7 @@ public class Level extends BasicGameState {
 		if (a != null) {
 			try {
 				l.action(a);
+				b1.play();
 			} catch (Exception e) {
 				s2.play();
 			}

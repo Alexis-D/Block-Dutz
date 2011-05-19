@@ -10,6 +10,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -23,18 +24,13 @@ public class LevelSelector extends BasicGameState {
 	public static int selected = 0;
 	public static int nbLevels = 48;
 	private int lastLine = 0;
+	private Sound s;
 
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException {
 		this.container = gc;
 		this.game = sbg;
-		
-		Database db = new Database();
-		try {
-			db.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		s = new Sound("ressources/sounds/menu1.ogg");
 	}
 
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
@@ -90,12 +86,13 @@ public class LevelSelector extends BasicGameState {
 						e.printStackTrace();
 					}
 
-	                float lg = 88.75f;
-	                float ht = 88.33f;
-	                g.fillRect(10 + x * (lg + 10), 10 + y * (ht + 10), lg, ht);
+				float lg = 88.75f;
+				float ht = 88.33f;
+				g.fillRect(10 + x * (lg + 10), 10 + y * (ht + 10), lg, ht);
 
-	                g.setColor(new Color(0, 0, 0));
-	                g.drawString("" + (y * 8 + x + 1), 10 + x * (lg + 10), 10 + y * (ht + 10));
+				g.setColor(new Color(0, 0, 0));
+				g.drawString("" + (y * 8 + x + 1), 10 + x * (lg + 10), 10 + y
+						* (ht + 10));
 			}
 
 			if (newRow) {
@@ -125,6 +122,7 @@ public class LevelSelector extends BasicGameState {
 			game.enterState(10, new FadeOutTransition(), new FadeInTransition());
 		} else {
 			int d = 0;
+			s.play();
 			switch (key) {
 			case Input.KEY_K:
 			case Input.KEY_UP:
@@ -143,7 +141,8 @@ public class LevelSelector extends BasicGameState {
 				d = 1;
 				break;
 			}
-			if (selected + d >= 0 && selected + d < 8 * (lastLine + 1)) {
+			if (selected + d >= 0 && selected + d < 8 * (lastLine + 1)
+					&& selected + d <= 47) {
 				selected += d;
 			}
 		}
