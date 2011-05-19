@@ -7,6 +7,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.gui.AbstractComponent;
 import org.newdawn.slick.gui.ComponentListener;
@@ -20,6 +21,7 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 public class EnterName extends BasicGameState {
 	private TextField field;
 	private StateBasedGame game;
+	private Sound s;
 
 	public int getID() {
 		return 3;
@@ -27,6 +29,7 @@ public class EnterName extends BasicGameState {
 
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException {
+		s = new Sound("ressources/sounds/entrerNom.ogg");
 		this.game = sbg;
 		field = new TextField(gc, new TrueTypeFont(new java.awt.Font(
 				java.awt.Font.SANS_SERIF, java.awt.Font.BOLD, 40), true), 100,
@@ -58,6 +61,8 @@ public class EnterName extends BasicGameState {
 		case Input.KEY_ESCAPE:
 			game.enterState(10, new FadeOutTransition(), new FadeInTransition());
 			break;
+		case Input.KEY_F1:
+			s.play(); break;
 		}
 	}
 
