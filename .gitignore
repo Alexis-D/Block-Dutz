@@ -2,4 +2,6 @@
 .classpath
 bin/**
 .metadata/**
+.settings/**
+ressources/Planet*
 
