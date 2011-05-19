@@ -6,6 +6,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.state.BasicGameState;
@@ -18,11 +19,13 @@ import org.newdawn.slick.state.transition.Transition;
 		private StateBasedGame game;
 		private GameContainer container;
 		private Integer selected = 0;
+		private Sound s;
 
 		public void init(GameContainer gc, StateBasedGame sbg)
 				throws SlickException {
 			this.container = gc;
 			this.game = sbg;
+			s = new Sound("ressources/sounds/menu1.ogg");
 		}
 
 		public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
@@ -70,6 +73,7 @@ import org.newdawn.slick.state.transition.Transition;
 				game.enterState(8, new FadeOutTransition(), new FadeInTransition());
 			} else {
 				int d = 0;
+				s.play();
 				switch (key) {
 					case Input.KEY_ESCAPE:
 						try {

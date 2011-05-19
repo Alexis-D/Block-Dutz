@@ -10,6 +10,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -23,11 +24,13 @@ public class LevelSelector extends BasicGameState {
 	public static int selected = 0;
 	public static int nbLevels = 48;
 	private int lastLine = 0;
+	private Sound s;
 
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException {
 		this.container = gc;
 		this.game = sbg;
+		s = new Sound("ressources/sounds/menu1.ogg");
 	}
 
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
@@ -118,6 +121,7 @@ public class LevelSelector extends BasicGameState {
 			game.enterState(10, new FadeOutTransition(), new FadeInTransition());
 		} else {
 			int d = 0;
+			s.play();
 			switch (key) {
 			case Input.KEY_UP:
 				d = -8;
