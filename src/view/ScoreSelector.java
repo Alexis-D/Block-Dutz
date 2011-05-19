@@ -29,6 +29,7 @@ import org.newdawn.slick.state.transition.Transition;
 				throws SlickException {
 		}
 
+		@SuppressWarnings("deprecation")
 		public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 		throws SlickException {
 			g.setBackground(Color.black);
@@ -36,26 +37,26 @@ import org.newdawn.slick.state.transition.Transition;
 					java.awt.Font.BOLD, 50), true));
 			g.setColor(new Color(255, 215, 0));
 
-	for (int y = 0; y < 6; ++y) {
-
-		for (int x = 0; x < 8; ++x) {
-			if (y * 8 + x == selected) {
-				g.setColor(new Color(255, 0, 0));
+		for (int y = 0; y < 6; ++y) {
+	
+			for (int x = 0; x < 8; ++x) {
+				if (y * 8 + x == selected) {
+					g.setColor(new Color(255, 0, 0));
+				}
+				else
+					g.setColor(new Color(255, 234, 0));
+						
+	                float lg = 88.75f;
+	                float ht = 88.33f;
+	                g.fillRect(10 + x * (lg + 10), 10 + y * (ht + 10), lg, ht);
+	
+	                g.setColor(new Color(0, 0, 0));
+	                g.drawString("" + (y * 8 + x + 1), 10 + x * (lg + 10), 10 + y * (ht + 10));
+				
+				}
 			}
-			else
-				g.setColor(new Color(255, 234, 0));
-					
-                float lg = 88.75f;
-                float ht = 88.33f;
-                g.fillRect(10 + x * (lg + 10), 10 + y * (ht + 10), lg, ht);
 
-                g.setColor(new Color(0, 0, 0));
-                g.drawString("" + (y * 8 + x + 1), 10 + x * (lg + 10), 10 + y * (ht + 10));
-			
 		}
-	}
-
-}
 
 		public void keyPressed(int key, char c) {
 

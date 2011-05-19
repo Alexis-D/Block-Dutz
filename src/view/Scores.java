@@ -62,6 +62,7 @@ public class Scores extends BasicGameState {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g)
 			throws SlickException {
@@ -72,7 +73,7 @@ public class Scores extends BasicGameState {
     	g.drawString("Classement niveau "+ levelSelected, 200, 50);
     	g.setFont(new TrueTypeFont(new java.awt.Font(java.awt.Font.SANS_SERIF, java.awt.Font.BOLD, 30), true));
     	
-    	int x = 300;
+    	int x = 150;
     	int y = 200;
     	int rank = 1;
     	
@@ -80,7 +81,7 @@ public class Scores extends BasicGameState {
     		if(rank != 10){
     				g.drawString(""+rank, x - 65, y);
 	    		 	g.drawString(name, x, y);
-	    		 	g.drawString(ladder.get(name), x + 300, y);
+	    		 	g.drawString(ladder.get(name), x + 400, y);
 	    		 	y = y + 50;
 	    		 	rank++;
     		}
