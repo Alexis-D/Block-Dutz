@@ -164,6 +164,9 @@ public class Level extends BasicGameState {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
+
+				LevelSelector.selected += LevelSelector.selected == LevelSelector.nbLevels ? 0
+						: 1;
 				game.enterState(0, new FadeOutTransition(),
 						new FadeInTransition());
 			}

@@ -20,7 +20,8 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 public class LevelSelector extends BasicGameState {
 	private StateBasedGame game;
 	private GameContainer container;
-	private Integer selected = 0;
+	public static int selected = 0;
+	public static int nbLevels = 35;
 	private int lastLine = 0;
 
 	public void init(GameContainer gc, StateBasedGame sbg)
