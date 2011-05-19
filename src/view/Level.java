@@ -94,9 +94,9 @@ public class Level extends BasicGameState {
 				case PLAYER_ON_DOOR:
 					theme.getPlayerDoor().draw(x, y);
 
-					TrueTypeFont ttf = new TrueTypeFont(new Font(
+					/*TrueTypeFont ttf = new TrueTypeFont(new Font(
 							Font.SANS_SERIF, Font.PLAIN, 50), true);
-					ttf.drawString(125, 125, "Good Boy!", Color.black);
+					ttf.drawString(125, 125, "Good Boy!", Color.black);*/
 					state = State.FINISHED;
 					break;
 
