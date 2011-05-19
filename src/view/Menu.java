@@ -31,7 +31,6 @@ public class Menu extends BasicGameState {
 		s2 = new Sound("ressources/sounds/menuJouer.ogg");
 		s3 = new Sound("ressources/sounds/menuScore.ogg");
 		s4 = new Sound("ressources/sounds/menuQuitter.ogg");
-		s1.play();
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
@@ -114,7 +113,10 @@ public class Menu extends BasicGameState {
 				playSound();
 			}
 			break;
-
+			
+		case Input.KEY_F1:
+			s1.play();
+			break;
 		}
 	}
 }
