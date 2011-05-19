@@ -23,7 +23,8 @@ public class Theme {
 	}
 
 	public Theme(String ground, String playerLeft, String playerRight,
-			String box, String door, String playerDoor, String groundBasic) throws SlickException {
+			String box, String door, String playerDoor, String groundBasic)
+			throws SlickException {
 		this(ground, playerLeft, playerRight, box, door, playerDoor);
 		this.groundBasic = new Image(groundBasic);
 	}
@@ -39,7 +40,7 @@ public class Theme {
 	public Image getPlayerRight() {
 		return playerRight;
 	}
-	
+
 	public Image getBox() {
 		return box;
 	}
