@@ -132,9 +132,9 @@ public class LevelSelector extends BasicGameState {
 				d = 1;
 				break;
 			}
-			//if (selected + d >= 0 && selected + d < 8 * (lastLine + 1)) {
+			if (selected + d >= 1 && selected + d < 8 * (lastLine + 1) && selected + d <= 48) {
 				selected += d;
-			//}
+			}
 		}
 	}
 
