@@ -70,7 +70,7 @@ public class Scores extends BasicGameState {
 		g.setBackground(Color.blue);
     	g.setColor(Color.white);
     	g.setFont(new TrueTypeFont(new java.awt.Font(java.awt.Font.SANS_SERIF, java.awt.Font.BOLD, 40), true));
-    	g.drawString("Classement niveau "+ levelSelected, 200, 50);
+    	g.drawString("Classement niveau "+ levelSelected, 150, 50);
     	g.setFont(new TrueTypeFont(new java.awt.Font(java.awt.Font.SANS_SERIF, java.awt.Font.BOLD, 30), true));
     	
     	int x = 150;
