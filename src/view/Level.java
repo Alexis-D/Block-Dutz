@@ -29,7 +29,7 @@ public class Level extends BasicGameState {
 	private StateBasedGame game;
 	private int id;
 	private Sound s1, s2;
-	private Sound h1;
+	private Sound h1, b1;
 
 	private model.game.Level l = null;
 
@@ -56,6 +56,7 @@ public class Level extends BasicGameState {
 		s1 = new Sound("ressources/sounds/winner.ogg");
 		s2 = new Sound("ressources/sounds/bloquer.ogg");
 		h1 = new Sound("ressources/sounds/f1sound.ogg");
+		b1 = new Sound("ressources/sounds/bruitPas.ogg");
 		this.game = sbg;
 		state = State.RUNNING;
 	}
@@ -192,6 +193,7 @@ public class Level extends BasicGameState {
 		if (a != null) {
 			try {
 				l.action(a);
+				b1.play();
 			} catch (Exception e) {
 				s2.play();
 			}
