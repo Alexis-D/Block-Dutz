@@ -21,7 +21,7 @@ public class LevelSelector extends BasicGameState {
 	private StateBasedGame game;
 	private GameContainer container;
 	public static int selected = 0;
-	public static int nbLevels = 35;
+	public static int nbLevels = 48;
 	private int lastLine = 0;
 
 	public void init(GameContainer gc, StateBasedGame sbg)
@@ -72,7 +72,7 @@ public class LevelSelector extends BasicGameState {
 
 						else if (lastRow) {
 							newRow = false;
-							g.setColor(new Color(0, 0, 255));
+							g.setColor(new Color(255, 255, 255));
 						}
 
 						else {
