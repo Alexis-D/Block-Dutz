@@ -2,7 +2,6 @@ package view;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import model.database.Database;
@@ -18,6 +17,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
+@SuppressWarnings("deprecation")
 public class Scores extends BasicGameState { 
 
 	private Database db;

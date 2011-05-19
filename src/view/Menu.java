@@ -17,14 +17,14 @@ public class Menu extends BasicGameState {
 	private StateBasedGame game;
 	private GameContainer container;
 	private Integer selected = 1;
-	private Sound s, s1, s2, s3, s4;
+	private Sound s1, s2, s3, s4;
 
 	public int getID() {
 		return 10;
 	}
 
 	public void init(GameContainer gc, StateBasedGame sbg)
-	throws SlickException {
+			throws SlickException {
 		this.container = gc;
 		this.game = sbg;
 		s1 = new Sound("ressources/sounds/bienvenue.ogg");
@@ -34,7 +34,7 @@ public class Menu extends BasicGameState {
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
-	throws SlickException {
+			throws SlickException {
 		g.setBackground(Color.black);
 		g.setFont(new TrueTypeFont(new java.awt.Font(java.awt.Font.SANS_SERIF,
 				java.awt.Font.BOLD, 50), true));
@@ -63,7 +63,7 @@ public class Menu extends BasicGameState {
 	}
 
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
-	throws SlickException {
+			throws SlickException {
 
 	}
 
@@ -71,14 +71,17 @@ public class Menu extends BasicGameState {
 		s2.stop();
 		s3.stop();
 		s4.stop();
-		if(! s1.playing()) {
-			switch(selected) {
-			case 1 :
-				s2.play(); break;
-			case 2 :
-				s3.play(); break;
-			case 3 :
-				s4.play(); break;
+		if (!s1.playing()) {
+			switch (selected) {
+			case 1:
+				s2.play();
+				break;
+			case 2:
+				s3.play();
+				break;
+			case 3:
+				s4.play();
+				break;
 			}
 		}
 	}
@@ -101,6 +104,7 @@ public class Menu extends BasicGameState {
 			}
 			break;
 
+		case Input.KEY_K:
 		case Input.KEY_UP:
 			if (this.selected > 1) {
 				--this.selected;
@@ -108,13 +112,14 @@ public class Menu extends BasicGameState {
 			}
 			break;
 
+		case Input.KEY_J:
 		case Input.KEY_DOWN:
 			if (this.selected < 3) {
 				++this.selected;
 				playSound();
 			}
 			break;
-			
+
 		case Input.KEY_F1:
 			s1.play();
 			break;

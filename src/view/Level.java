@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.Font;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,13 +17,11 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
-import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
-@SuppressWarnings("deprecation")
 public class Level extends BasicGameState {
 	private StateBasedGame game;
 	private int id;
@@ -96,9 +93,11 @@ public class Level extends BasicGameState {
 				case PLAYER_ON_DOOR:
 					theme.getPlayerDoor().draw(x, y);
 
-					/*TrueTypeFont ttf = new TrueTypeFont(new Font(
-							Font.SANS_SERIF, Font.PLAIN, 50), true);
-					ttf.drawString(125, 125, "Good Boy!", Color.black);*/
+					/*
+					 * TrueTypeFont ttf = new TrueTypeFont(new Font(
+					 * Font.SANS_SERIF, Font.PLAIN, 50), true);
+					 * ttf.drawString(125, 125, "Good Boy!", Color.black);
+					 */
 					state = State.FINISHED;
 					break;
 
@@ -144,9 +143,11 @@ public class Level extends BasicGameState {
 		case Input.KEY_SPACE:
 			a = Action.TOGGLE;
 			break;
+		case Input.KEY_H:
 		case Input.KEY_LEFT:
 			a = Action.LEFT;
 			break;
+		case Input.KEY_L:
 		case Input.KEY_RIGHT:
 			a = Action.RIGHT;
 			break;

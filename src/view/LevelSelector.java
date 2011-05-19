@@ -28,6 +28,13 @@ public class LevelSelector extends BasicGameState {
 			throws SlickException {
 		this.container = gc;
 		this.game = sbg;
+		
+		Database db = new Database();
+		try {
+			db.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
@@ -119,15 +126,19 @@ public class LevelSelector extends BasicGameState {
 		} else {
 			int d = 0;
 			switch (key) {
+			case Input.KEY_K:
 			case Input.KEY_UP:
 				d = -8;
 				break;
+			case Input.KEY_J:
 			case Input.KEY_DOWN:
 				d = 8;
 				break;
+			case Input.KEY_H:
 			case Input.KEY_LEFT:
 				d = -1;
 				break;
+			case Input.KEY_L:
 			case Input.KEY_RIGHT:
 				d = 1;
 				break;
