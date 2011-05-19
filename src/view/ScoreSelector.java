@@ -30,28 +30,33 @@ import org.newdawn.slick.state.transition.Transition;
 		}
 
 		public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
-				throws SlickException {
-			int i = 0;	
-	    	g.setBackground(Color.black);
-	    	g.setFont(new TrueTypeFont(new java.awt.Font(java.awt.Font.SANS_SERIF, java.awt.Font.BOLD, 50), true));
+		throws SlickException {
+			g.setBackground(Color.black);
+			g.setFont(new TrueTypeFont(new java.awt.Font(java.awt.Font.SANS_SERIF,
+					java.awt.Font.BOLD, 50), true));
 			g.setColor(new Color(255, 215, 0));
-			for (int y = 0; y < 5; ++y) {
-				for (int x = 0; x < 7; ++x) {
-					if (y * 7 + x == selected) {
-						g.setColor(new Color(255, 0, 0));
-					}
-					
-					else {
-						g.setColor(new Color(255, 215, 0));
-					}
-					
-					g.fillRect(15 + x * 135, 15 + y * 135, 120, 120);
 
-					g.setColor(new Color(0, 0, 0));
-					g.drawString("" + (y * 7 + x + 1), 15 + x * 135, 15 + y * 135);
-				}
+	for (int y = 0; y < 6; ++y) {
+
+		for (int x = 0; x < 8; ++x) {
+			if (y * 8 + x == selected) {
+				g.setColor(new Color(255, 0, 0));
 			}
+			else
+				g.setColor(new Color(255, 234, 0));
+					
+                float lg = 88.75f;
+                float ht = 88.33f;
+                g.fillRect(10 + x * (lg + 10), 10 + y * (ht + 10), lg, ht);
+
+                g.setColor(new Color(0, 0, 0));
+                g.drawString("" + (y * 8 + x + 1), 10 + x * (lg + 10), 10 + y * (ht + 10));
+			
+
 		}
+	}
+
+}
 
 		public void keyPressed(int key, char c) {
 
@@ -75,10 +80,10 @@ import org.newdawn.slick.state.transition.Transition;
 						game.enterState(10, new FadeOutTransition(), new FadeInTransition());
 				
 	    			case Input.KEY_UP:
-	    				d = -7;
+	    				d = -8;
 	    				break;
 	    			case Input.KEY_DOWN:
-	    				d = 7;
+	    				d = 8;
 	    				break;
 	    			case Input.KEY_LEFT:
 	    				d = -1;

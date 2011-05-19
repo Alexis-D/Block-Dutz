@@ -87,7 +87,6 @@ public class Scores extends BasicGameState {
     		else
     			break;
     	}
-    	
 	}
 
 	public void setLevel(int l){
