@@ -57,7 +57,7 @@ public class Level extends BasicGameState {
 			throws SlickException {
 		s1 = new Sound("ressources/sounds/winner.ogg");
 		s2 = new Sound("ressources/sounds/bloquer.ogg");
-		h1 = new Sound("ressources/sounds/f1sound.ogg");
+		h1 = new Sound("ressources/sounds/aide.ogg");
 		b1 = new Sound("ressources/sounds/bruitPas.ogg");
 		this.game = sbg;
 		state = State.RUNNING;
