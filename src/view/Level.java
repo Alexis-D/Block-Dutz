@@ -44,6 +44,11 @@ public class Level extends BasicGameState {
 	private State state;
 
 	public Level() throws SlickException {
+		themes.add(new Theme("ressources/old/ground.png",
+				"ressources/old/max_left.png", "ressources/old/max_right.png",
+				"ressources/old/box.png", "ressources/old/door.png",
+				"ressources/old/player_door.png", "ressources/old/groundbasic.png"));
+		
 		themes.add(new Theme("ressources/ground.png",
 				"ressources/player_left.png", "ressources/player_right.png",
 				"ressources/box.png", "ressources/door.png",
