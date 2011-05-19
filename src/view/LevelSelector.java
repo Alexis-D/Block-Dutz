@@ -10,7 +10,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.Sound;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -24,14 +23,11 @@ public class LevelSelector extends BasicGameState {
 	public static int selected = 0;
 	public static int nbLevels = 35;
 	private int lastLine = 0;
-	private Sound failSound;
 
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException {
 		this.container = gc;
 		this.game = sbg;
-
-		failSound = new Sound("ressources/sounds/bloquer.ogg");
 	}
 
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
@@ -54,15 +50,15 @@ public class LevelSelector extends BasicGameState {
 
 		boolean lastRow = true;
 
-		for (int y = 0; y < 5; ++y) {
+		for (int y = 0; y < 6; ++y) {
 			boolean newRow = true;
 
-			for (int x = 0; x < 7; ++x) {
-				if (y * 7 + x == selected) {
+			for (int x = 0; x < 8; ++x) {
+				if (y * 8 + x == selected) {
 					g.setColor(new Color(255, 0, 0));
 
 					try {
-						if (db.getScore(Player.name, y * 7 + 1 + x) == Integer.MAX_VALUE) {
+						if (db.getScore(Player.name, y * 8 + 1 + x) == Integer.MAX_VALUE) {
 							newRow = false;
 						}
 					} catch (SQLException e) {
@@ -70,7 +66,7 @@ public class LevelSelector extends BasicGameState {
 					}
 				} else
 					try {
-						if (db.getScore(Player.name, y * 7 + 1 + x) != Integer.MAX_VALUE) {
+						if (db.getScore(Player.name, y * 8 + 1 + x) != Integer.MAX_VALUE) {
 							g.setColor(new Color(0, 255, 0));
 						}
 
@@ -87,10 +83,12 @@ public class LevelSelector extends BasicGameState {
 						e.printStackTrace();
 					}
 
-				g.fillRect(15 + x * 135, 15 + y * 135, 120, 120);
+	                float lg = 88.75f;
+	                float ht = 88.33f;
+	                g.fillRect(10 + x * (lg + 10), 10 + y * (ht + 10), lg, ht);
 
-				g.setColor(new Color(0, 0, 0));
-				g.drawString("" + (y * 7 + x + 1), 15 + x * 135, 15 + y * 135);
+	                g.setColor(new Color(0, 0, 0));
+	                g.drawString("" + (y * 8 + x + 1), 10 + x * (lg + 10), 10 + y * (ht + 10));
 			}
 
 			if (newRow) {
@@ -122,10 +120,10 @@ public class LevelSelector extends BasicGameState {
 			int d = 0;
 			switch (key) {
 			case Input.KEY_UP:
-				d = -7;
+				d = -8;
 				break;
 			case Input.KEY_DOWN:
-				d = 7;
+				d = 8;
 				break;
 			case Input.KEY_LEFT:
 				d = -1;
@@ -134,11 +132,8 @@ public class LevelSelector extends BasicGameState {
 				d = 1;
 				break;
 			}
-			if (selected + d >= 0 && selected + d < 7 * (lastLine + 1)) {
+			if (selected + d >= 0 && selected + d < 8 * (lastLine + 1)) {
 				selected += d;
-			}
-			else {
-				failSound.play();
 			}
 		}
 	}

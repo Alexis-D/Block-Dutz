@@ -20,7 +20,7 @@ public class Game extends StateBasedGame {
 	public static void main(String[] arguments) {
 		try {
 			AppGameContainer app = new AppGameContainer(new Game());
-			app.setDisplayMode(64 * 15, 64 * 11, false);
+			app.setDisplayMode(800, 600, true);
 			app.setShowFPS(false);
 			app.setVSync(true);
 			app.start();

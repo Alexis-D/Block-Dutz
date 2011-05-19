@@ -64,7 +64,6 @@ public class EnterName extends BasicGameState {
 	@Override
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
 			throws SlickException {
-		// TODO Auto-generated method stub
-		
+
 	}
 }
