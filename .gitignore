@@ -4,4 +4,4 @@ bin/**
 .metadata/**
 .settings/**
 ressources/Planet*
-
+database/scores.db
