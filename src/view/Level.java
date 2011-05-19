@@ -160,15 +160,27 @@ public class Level extends BasicGameState {
 				Database db = new Database();
 				try {
 					db.insertScore(Player.name, id, l.getNbMoves());
-					db.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
-
-				LevelSelector.selected += LevelSelector.selected == LevelSelector.nbLevels ? 0
-						: 1;
+                try {
+                    int f = db.nbLevelsFinished(Player.name);
+                    System.out.println(f);
+                    if (LevelSelector.selected + 1 < (f / 8 + 1)) {
+                        LevelSelector.selected += LevelSelector.selected == LevelSelector.nbLevels ? 0
+                                : 1;
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
 				game.enterState(0, new FadeOutTransition(),
 						new FadeInTransition());
+                try {
+                    db.close();
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
 			}
 			return;
 		}
