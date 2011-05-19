@@ -47,6 +47,14 @@ public class Level extends BasicGameState {
 				"ressources/player_left.png", "ressources/player_right.png",
 				"ressources/box.png", "ressources/door.png",
 				"ressources/player_door.png"));
+		themes.add(new Theme("ressources/skin2/ground.png",
+				"ressources/skin2/player_left.png", "ressources/skin2/player_right.png",
+				"ressources/skin2/box.png", "ressources/skin2/door.png",
+				"ressources/skin2/player_door.png"));
+		themes.add(new Theme("ressources/old/ground.png",
+				"ressources/player_left.png", "ressources/player_right.png",
+				"ressources/old/box.png", "ressources/old/door.png",
+				"ressources/player_door.png", "ressources/old/groundbasic.png"));
 		theme = themes.next();
 	}
 
@@ -164,6 +172,9 @@ public class Level extends BasicGameState {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
+
+				LevelSelector.selected += LevelSelector.selected == LevelSelector.nbLevels ? 0
+						: 1;
 				game.enterState(0, new FadeOutTransition(),
 						new FadeInTransition());
 			}
