@@ -35,6 +35,7 @@ public class EnterName extends BasicGameState {
 				java.awt.Font.SANS_SERIF, java.awt.Font.BOLD, 40), true), 100,
 				200, 600, 100, new ComponentListener() {
 					public void componentActivated(AbstractComponent source) {
+						s.stop();
 						field.deactivate();
 						Player.name = field.getText();
 						game.enterState(0);
