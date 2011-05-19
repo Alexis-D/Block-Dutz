@@ -78,11 +78,11 @@ public class Scores extends BasicGameState {
     	
     	for (String name : ladder.keySet()) {
     		if(rank != 10){
-	    		 g.drawString(""+rank, x-65, y);
-	    		 g.drawString(name, x, y);
-	    		 g.drawString(ladder.get(name), x+300, y);
-	    		 y = y + 50;
-	    		 rank++;
+    				g.drawString(""+rank, x - 65, y);
+	    		 	g.drawString(name, x, y);
+	    		 	g.drawString(ladder.get(name), x + 300, y);
+	    		 	y = y + 50;
+	    		 	rank++;
     		}
     		else
     			break;
