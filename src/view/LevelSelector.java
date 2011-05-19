@@ -10,6 +10,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -23,11 +24,14 @@ public class LevelSelector extends BasicGameState {
 	public static int selected = 0;
 	public static int nbLevels = 35;
 	private int lastLine = 0;
+	private Sound failSound;
 
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException {
 		this.container = gc;
 		this.game = sbg;
+
+		failSound = new Sound("ressources/sounds/bloquer.ogg");
 	}
 
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
@@ -132,6 +136,9 @@ public class LevelSelector extends BasicGameState {
 			}
 			if (selected + d >= 0 && selected + d < 7 * (lastLine + 1)) {
 				selected += d;
+			}
+			else {
+				failSound.play();
 			}
 		}
 	}
