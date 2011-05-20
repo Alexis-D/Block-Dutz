@@ -19,8 +19,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.state.transition.FadeInTransition;
-import org.newdawn.slick.state.transition.FadeOutTransition;
 
 public class Level extends BasicGameState {
 	private StateBasedGame game;
@@ -125,10 +123,11 @@ public class Level extends BasicGameState {
 		try {
 			l = new model.game.Level("ressources/maps/" + level);
 		} catch (IOException e) {
-			game.enterState(0, new FadeOutTransition(), new FadeInTransition());
+			game.enterState(0);
 		}
 		
 		if(id == 1) {
+			aide.stop();
 			aide.play();
 		}
 	}
@@ -140,7 +139,7 @@ public class Level extends BasicGameState {
 		case Input.KEY_ESCAPE:
 			winner.stop();
 			aide.stop();
-			game.enterState(0, new FadeOutTransition(), new FadeInTransition());
+			game.enterState(0);
 			break;
 		case Input.KEY_SPACE:
 			a = Action.TOGGLE;
@@ -154,6 +153,7 @@ public class Level extends BasicGameState {
 			a = Action.RIGHT;
 			break;
 		case Input.KEY_F1:
+			aide.stop();
 			aide.play();
 			break;
 		case Input.KEY_F2:
@@ -175,8 +175,7 @@ public class Level extends BasicGameState {
 							LevelSelector.selected = newl;
 						}
 					}
-					game.enterState(0, new FadeOutTransition(),
-							new FadeInTransition());
+					game.enterState(0);
 					db.close();
 				} catch (SQLException e) {
 					e.printStackTrace();

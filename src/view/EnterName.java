@@ -14,8 +14,6 @@ import org.newdawn.slick.gui.ComponentListener;
 import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.state.transition.FadeInTransition;
-import org.newdawn.slick.state.transition.FadeOutTransition;
 
 @SuppressWarnings("deprecation")
 public class EnterName extends BasicGameState {
@@ -61,9 +59,10 @@ public class EnterName extends BasicGameState {
 		switch (key) {
 		case Input.KEY_ESCAPE:
 		    aide.stop();
-			game.enterState(10, new FadeOutTransition(), new FadeInTransition());
+			game.enterState(10);
 			break;
 		case Input.KEY_F1:
+			aide.stop();
 		    aide.play();
 			break;
 		}

@@ -9,8 +9,6 @@ import org.newdawn.slick.Sound;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.state.transition.FadeInTransition;
-import org.newdawn.slick.state.transition.FadeOutTransition;
 
 @SuppressWarnings("deprecation")
 public class Menu extends BasicGameState {
@@ -85,7 +83,7 @@ public class Menu extends BasicGameState {
 			}
 		}
 	}
-
+	
 	public void keyPressed(int key, char c) {
 		switch (key) {
 		case Input.KEY_ENTER:
@@ -96,16 +94,14 @@ public class Menu extends BasicGameState {
 				} catch (SlickException e) {
 					e.printStackTrace();
 				}
-				game.enterState(3, new FadeOutTransition(),
-						new FadeInTransition());
+				game.enterState(3);
 			} else if (selected == 2) {
 				try {
 					game.getState(7).init(container, game);
 				} catch (SlickException e) {
 					e.printStackTrace();
 				}
-				game.enterState(7, new FadeOutTransition(),
-						new FadeInTransition());
+				game.enterState(7);
 				
 			} else if (selected == 3) {
 				container.exit();
@@ -126,6 +122,7 @@ public class Menu extends BasicGameState {
 			}
 			break;
 		case Input.KEY_F1:
+			bienvenue.stop();
 		    bienvenue.play();
 			break;
 		}

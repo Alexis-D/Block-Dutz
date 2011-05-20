@@ -9,8 +9,6 @@ import org.newdawn.slick.Sound;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.state.transition.FadeInTransition;
-import org.newdawn.slick.state.transition.FadeOutTransition;
 
 @SuppressWarnings("deprecation")
 public class ScoreSelector extends BasicGameState {
@@ -68,7 +66,7 @@ public class ScoreSelector extends BasicGameState {
 			} catch (SlickException e) {
 				e.printStackTrace();
 			}
-			game.enterState(8, new FadeOutTransition(), new FadeInTransition());
+			game.enterState(8);
 		} else {
 			int d = 0;
 			switch (key) {
@@ -78,8 +76,7 @@ public class ScoreSelector extends BasicGameState {
 				} catch (SlickException e) {
 					e.printStackTrace();
 				}
-				game.enterState(10, new FadeOutTransition(),
-						new FadeInTransition());
+				game.enterState(10);
 
 			case Input.KEY_K:
 			case Input.KEY_UP:

@@ -14,7 +14,7 @@ public class Main {
                 e1.printStackTrace();
             }
             try {
-                app.setFullscreen(true);
+                app.setFullscreen(false);
             } catch (SlickException e) {
             }
             app.setShowFPS(false);

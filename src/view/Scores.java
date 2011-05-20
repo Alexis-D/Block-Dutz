@@ -14,8 +14,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.state.transition.FadeInTransition;
-import org.newdawn.slick.state.transition.FadeOutTransition;
 
 @SuppressWarnings("deprecation")
 public class Scores extends BasicGameState { 
@@ -105,7 +103,7 @@ public class Scores extends BasicGameState {
 			} catch (SlickException e) {
 				e.printStackTrace();
 			}
-			game.enterState(7, new FadeOutTransition(), new FadeInTransition());
+			game.enterState(7);
 		}
 		else if(key == Input.KEY_ESCAPE){
 			try {
@@ -113,7 +111,7 @@ public class Scores extends BasicGameState {
 			} catch (SlickException e) {
 				e.printStackTrace();
 			}
-			game.enterState(7, new FadeOutTransition(), new FadeInTransition());
+			game.enterState(7);
 		}
 			
 	}

@@ -14,8 +14,6 @@ import org.newdawn.slick.Sound;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.state.transition.FadeInTransition;
-import org.newdawn.slick.state.transition.FadeOutTransition;
 
 @SuppressWarnings("deprecation")
 public class LevelSelector extends BasicGameState {
@@ -119,9 +117,9 @@ public class LevelSelector extends BasicGameState {
 			} catch (SlickException e) {
 				e.printStackTrace();
 			}
-			game.enterState(1, new FadeOutTransition(), new FadeInTransition());
+			game.enterState(1);
 		} else if (key == Input.KEY_ESCAPE) {
-			game.enterState(10, new FadeOutTransition(), new FadeInTransition());
+			game.enterState(10);
 		} else {
 			int d = 0;
 			switch (key) {
