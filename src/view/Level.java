@@ -25,20 +25,13 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 public class Level extends BasicGameState {
 	private StateBasedGame game;
 	private int id;
-	private Sound s1, s2;
-	private Sound h1, b1;
+	private Sound winner, bloquer;
+	private Sound aide, pas;
 
 	private model.game.Level l = null;
-
-	// private Image ground, playerLeft, playerRight, box, door, playerDoor;
 	private Themes themes = new Themes();
 	private Theme theme;
-
-	private enum State {
-		RUNNING, FINISHED
-	}
-
-	private State state;
+	private boolean fini;
 
 	public Level() throws SlickException {
 		themes.add(new Theme("ressources/old/ground.png",
@@ -55,12 +48,12 @@ public class Level extends BasicGameState {
 
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException {
-		s1 = new Sound("ressources/sounds/winner.ogg");
-		s2 = new Sound("ressources/sounds/bloquer.ogg");
-		h1 = new Sound("ressources/sounds/aide.ogg");
-		b1 = new Sound("ressources/sounds/bruitPas.ogg");
+	    winner = new Sound("ressources/sounds/winner.ogg");
+		bloquer = new Sound("ressources/sounds/bloquer.ogg");
+		aide = new Sound("ressources/sounds/aide.ogg");
+		pas = new Sound("ressources/sounds/bruitPas.ogg");
 		this.game = sbg;
-		state = State.RUNNING;
+		fini = false;
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
@@ -89,7 +82,6 @@ public class Level extends BasicGameState {
 					else
 						theme.getPlayerRight().draw(x, y);
 					break;
-
 				case BLOCK:
 					theme.getBox().draw(x, y);
 					break;
@@ -98,34 +90,31 @@ public class Level extends BasicGameState {
 					break;
 				case PLAYER_ON_DOOR:
 					theme.getPlayerDoor().draw(x, y);
-
-					/*
-					 * TrueTypeFont ttf = new TrueTypeFont(new Font(
-					 * Font.SANS_SERIF, Font.PLAIN, 50), true);
-					 * ttf.drawString(125, 125, "Good Boy!", Color.black);
-					 */
-					state = State.FINISHED;
+					if (!fini) {
+					    fini = true;
+					    winner.play();
+		                Database db = new Database();
+		                try {
+		                    db.insertScore(Player.name, id, l.getNbMoves());
+		                } catch (SQLException e) {
+		                    e.printStackTrace();
+		                }
+					}
 					break;
-
 				}
 				x += theme.getGround().getWidth();
 				++absBox;
 			}
-
 			lastLine = c;
 			y += theme.getGround().getHeight();
-
 		}
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int arg2)
 			throws SlickException {
-		switch (state) {
-		case FINISHED:
-			if (!s1.playing())
-				s1.play();
-			break;
-		}
+	    if (fini && !winner.playing()) {
+	        keyPressed(Input.KEY_ENTER, '\n');
+	    }
 	}
 
 	public void setLevel(Integer level) {
@@ -134,7 +123,8 @@ public class Level extends BasicGameState {
 		try {
 			l = new model.game.Level("maps/" + level);
 		} catch (IOException e) {
-			e.printStackTrace();
+		    game.enterState(0, new FadeOutTransition(),
+                    new FadeInTransition());
 		}
 	}
 
@@ -143,7 +133,7 @@ public class Level extends BasicGameState {
 		switch (key) {
 
 		case Input.KEY_ESCAPE:
-			s1.stop();
+		    winner.stop();
 			game.enterState(0, new FadeOutTransition(), new FadeInTransition());
 			break;
 		case Input.KEY_SPACE:
@@ -158,49 +148,37 @@ public class Level extends BasicGameState {
 			a = Action.RIGHT;
 			break;
 		case Input.KEY_F1:
-			h1.play();
+			aide.play();
 			break;
 		case Input.KEY_F2:
 			theme = themes.next();
 			break;
 		case Input.KEY_ENTER:
-			if (state == State.RUNNING) {
+			if (!fini) {
 				setLevel(id);
 			}
-
 			else {
 				Database db = new Database();
 				try {
-					db.insertScore(Player.name, id, l.getNbMoves());
+                    int f = db.nbLevelsFinished(Player.name);
+                    if ((LevelSelector.selected + 1) / 8 + 1 <= f / 8 + 1) {
+                        LevelSelector.selected = Math.min(LevelSelector.selected + 1, LevelSelector.nbLevels);
+                    }
+                    game.enterState(0, new FadeOutTransition(),
+                            new FadeInTransition());
+                    db.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
-                try {
-                    int f = db.nbLevelsFinished(Player.name);
-                    if (LevelSelector.selected + 1 < (f / 8 + 1)) {
-                        LevelSelector.selected += LevelSelector.selected == LevelSelector.nbLevels ? 0
-                                : 1;
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-				game.enterState(0, new FadeOutTransition(),
-						new FadeInTransition());
-                try {
-                    db.close();
-                } catch (SQLException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
 			}
 			return;
 		}
 		if (a != null) {
 			try {
 				l.action(a);
-				b1.play();
+				pas.play();
 			} catch (Exception e) {
-				s2.play();
+			    bloquer.play();
 			}
 		}
 	}
