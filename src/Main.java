@@ -6,14 +6,23 @@ import view.Game;
 
 public class Main {
     public static void main(String[] arguments) {
-        try {
-            AppGameContainer app = new AppGameContainer(new Game());
-            app.setDisplayMode(800, 600, false);
+            AppGameContainer app =  null;
+            try {
+                app = new AppGameContainer(new Game());
+                app.setDisplayMode(800, 600, false);
+            } catch (SlickException e1) {
+                e1.printStackTrace();
+            }
+            try {
+                app.setFullscreen(true);
+            } catch (SlickException e) {
+            }
             app.setShowFPS(false);
             app.setVSync(true);
-            app.start();
-        } catch (SlickException e) {
-            e.printStackTrace();
-        }
+            try {
+                app.start();
+            } catch (SlickException e) {
+                e.printStackTrace();
+            }
     }
 }
