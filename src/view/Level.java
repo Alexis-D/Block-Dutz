@@ -35,10 +35,11 @@ public class Level extends BasicGameState {
 
 	public Level() throws SlickException {
 		themes.add(new Theme("ressources/old/ground.png",
-				"ressources/old/player_left.png", "ressources/old/player_right.png",
-				"ressources/old/box.png", "ressources/old/nid.png",
-				"ressources/old/player_door.png", "ressources/old/groundbasic.png"));
-		
+				"ressources/old/player_left.png",
+				"ressources/old/player_right.png", "ressources/old/box.png",
+				"ressources/old/nid.png", "ressources/old/player_door.png",
+				"ressources/old/groundbasic.png"));
+
 		themes.add(new Theme("ressources/ground.png",
 				"ressources/player_left.png", "ressources/player_right.png",
 				"ressources/box.png", "ressources/door.png",
@@ -48,7 +49,7 @@ public class Level extends BasicGameState {
 
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException {
-	    winner = new Sound("ressources/sounds/winner.ogg");
+		winner = new Sound("ressources/sounds/winner.ogg");
 		bloquer = new Sound("ressources/sounds/bloquer.ogg");
 		aide = new Sound("ressources/sounds/aide.ogg");
 		pas = new Sound("ressources/sounds/bruitPas.ogg");
@@ -91,15 +92,15 @@ public class Level extends BasicGameState {
 				case PLAYER_ON_DOOR:
 					theme.getPlayerDoor().draw(x, y);
 					if (!fini) {
-					    fini = true;
-					    aide.stop();
-					    winner.play();
-		                Database db = new Database();
-		                try {
-		                    db.insertScore(Player.name, id, l.getNbMoves());
-		                } catch (SQLException e) {
-		                    e.printStackTrace();
-		                }
+						fini = true;
+						aide.stop();
+						winner.play();
+						Database db = new Database();
+						try {
+							db.insertScore(Player.name, id, l.getNbMoves());
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
 					}
 					break;
 				}
@@ -113,9 +114,9 @@ public class Level extends BasicGameState {
 
 	public void update(GameContainer gc, StateBasedGame sbg, int arg2)
 			throws SlickException {
-	    if (fini && !winner.playing()) {
-	        keyPressed(Input.KEY_ENTER, '\n');
-	    }
+		if (fini && !winner.playing()) {
+			keyPressed(Input.KEY_ENTER, '\n');
+		}
 	}
 
 	public void setLevel(Integer level) {
@@ -124,8 +125,7 @@ public class Level extends BasicGameState {
 		try {
 			l = new model.game.Level("ressources/maps/" + level);
 		} catch (IOException e) {
-		    game.enterState(0, new FadeOutTransition(),
-                    new FadeInTransition());
+			game.enterState(0, new FadeOutTransition(), new FadeInTransition());
 		}
 	}
 
@@ -134,8 +134,8 @@ public class Level extends BasicGameState {
 		switch (key) {
 
 		case Input.KEY_ESCAPE:
-		    winner.stop();
-		    aide.stop();
+			winner.stop();
+			aide.stop();
 			game.enterState(0, new FadeOutTransition(), new FadeInTransition());
 			break;
 		case Input.KEY_SPACE:
@@ -159,17 +159,21 @@ public class Level extends BasicGameState {
 			aide.stop();
 			if (!fini) {
 				setLevel(id);
-			}
-			else {
+			} else {
 				Database db = new Database();
 				try {
-                    int f = db.nbLevelsFinished(Player.name);
-                    if ((LevelSelector.selected + 1) / 8 + 1 <= f / 8 + 1) {
-                        LevelSelector.selected = Math.min(LevelSelector.selected + 1, LevelSelector.nbLevels);
-                    }
-                    game.enterState(0, new FadeOutTransition(),
-                            new FadeInTransition());
-                    db.close();
+					int f = db.nbLevelsFinished(Player.name);
+					if ((LevelSelector.selected + 1) / 8 + 1 <= f / 8 + 1) {
+						int newl = Math.min(LevelSelector.selected + 1,
+								LevelSelector.nbLevels);
+						
+						if(newl < LevelSelector.nbLevels) {
+							LevelSelector.selected = newl;
+						}
+					}
+					game.enterState(0, new FadeOutTransition(),
+							new FadeInTransition());
+					db.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -181,7 +185,7 @@ public class Level extends BasicGameState {
 				l.action(a);
 				pas.play();
 			} catch (Exception e) {
-			    bloquer.play();
+				bloquer.play();
 			}
 		}
 	}
