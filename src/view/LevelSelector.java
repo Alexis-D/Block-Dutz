@@ -22,15 +22,16 @@ public class LevelSelector extends BasicGameState {
 	private StateBasedGame game;
 	private GameContainer container;
 	public static int selected = 0;
-	public static int nbLevels = 48;
+	public static final int nbLevels = 48;
 	private int lastLine = 0;
-	private Sound s;
+	private Sound s, bloquer;
 
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException {
 		this.container = gc;
 		this.game = sbg;
 		s = new Sound("ressources/sounds/menu1.ogg");
+		bloquer = new Sound("ressources/sounds/bloquer.ogg");
 	}
 
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
@@ -67,7 +68,7 @@ public class LevelSelector extends BasicGameState {
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
-				} else
+				} else {
 					try {
 						if (db.getScore(Player.name, y * 8 + 1 + x) != Integer.MAX_VALUE) {
 							g.setColor(new Color(0, 255, 0));
@@ -85,6 +86,7 @@ public class LevelSelector extends BasicGameState {
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
+				}
 
 				float lg = 88.75f;
 				float ht = 88.33f;
@@ -122,7 +124,6 @@ public class LevelSelector extends BasicGameState {
 			game.enterState(10, new FadeOutTransition(), new FadeInTransition());
 		} else {
 			int d = 0;
-			s.play();
 			switch (key) {
 			case Input.KEY_K:
 			case Input.KEY_UP:
@@ -141,9 +142,15 @@ public class LevelSelector extends BasicGameState {
 				d = 1;
 				break;
 			}
-			if (selected + d >= 0 && selected + d < 8 * (lastLine + 1)
-					&& selected + d <= 47) {
-				selected += d;
+			if (d != 0) {
+    			if (selected + d >= 0 && selected + d < 8 * (lastLine + 1)
+    					&& selected + d <= 47) {
+    			    s.play();
+    				selected += d;
+    			}
+    			else {
+    			    bloquer.play();
+    			}
 			}
 		}
 	}

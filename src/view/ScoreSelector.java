@@ -17,13 +17,14 @@ public class ScoreSelector extends BasicGameState {
 	private StateBasedGame game;
 	private GameContainer container;
 	private Integer selected = 0;
-	private Sound s;
+	private Sound s, bloquer;
 
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException {
 		this.container = gc;
 		this.game = sbg;
 		s = new Sound("ressources/sounds/menu1.ogg");
+		bloquer = new Sound("ressources/sounds/bloquer.ogg");
 	}
 
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
@@ -70,7 +71,6 @@ public class ScoreSelector extends BasicGameState {
 			game.enterState(8, new FadeOutTransition(), new FadeInTransition());
 		} else {
 			int d = 0;
-			s.play();
 			switch (key) {
 			case Input.KEY_ESCAPE:
 				try {
@@ -98,9 +98,15 @@ public class ScoreSelector extends BasicGameState {
 				d = 1;
 				break;
 			}
-			if (selected + d >= 0 && selected + d < 6 * 8) {
-				selected += d;
-			}
+			if (d != 0) {
+    			if (selected + d >= 0 && selected + d < 6 * 8) {
+    				selected += d;
+    				s.play();
+    			}
+                else {
+                    bloquer.play();
+                }
+            }
 		}
 	}
 

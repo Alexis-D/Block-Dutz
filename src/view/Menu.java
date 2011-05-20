@@ -17,7 +17,7 @@ public class Menu extends BasicGameState {
 	private StateBasedGame game;
 	private GameContainer container;
 	private Integer selected = 1;
-	private Sound s1, s2, s3, s4;
+	private Sound bienvenue, jouer, score, quitter;
 
 	public int getID() {
 		return 10;
@@ -27,10 +27,10 @@ public class Menu extends BasicGameState {
 			throws SlickException {
 		this.container = gc;
 		this.game = sbg;
-		s1 = new Sound("ressources/sounds/bienvenue.ogg");
-		s2 = new Sound("ressources/sounds/menuJouer.ogg");
-		s3 = new Sound("ressources/sounds/menuScore.ogg");
-		s4 = new Sound("ressources/sounds/menuQuitter.ogg");
+		bienvenue = new Sound("ressources/sounds/bienvenue.ogg");
+		jouer = new Sound("ressources/sounds/menuJouer.ogg");
+		score = new Sound("ressources/sounds/menuScore.ogg");
+		quitter = new Sound("ressources/sounds/menuQuitter.ogg");
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
@@ -49,7 +49,7 @@ public class Menu extends BasicGameState {
 		}
 
 		g.setColor(new Color(255, 255, 255));
-		g.drawString("Block Dutz", 300, 50);
+		g.drawString("Block Dutz", 250, 50);
 
 		String[] texte = { "Jouer", "Scores", "Quitter" };
 		for (int i = 1; i < 4; ++i) {
@@ -68,19 +68,19 @@ public class Menu extends BasicGameState {
 	}
 
 	public void playSound() {
-		s2.stop();
-		s3.stop();
-		s4.stop();
-		if (!s1.playing()) {
+		jouer.stop();
+		score.stop();
+		quitter.stop();
+		if (!bienvenue.playing()) {
 			switch (selected) {
 			case 1:
-				s2.play();
+				jouer.play();
 				break;
 			case 2:
-				s3.play();
+				score.play();
 				break;
 			case 3:
-				s4.play();
+				quitter.play();
 				break;
 			}
 		}
@@ -89,7 +89,7 @@ public class Menu extends BasicGameState {
 	public void keyPressed(int key, char c) {
 		switch (key) {
 		case Input.KEY_ENTER:
-			s1.stop();
+		    bienvenue.stop();
 			if (selected == 1) {
 				try {
 					game.getState(3).init(container, game);
@@ -111,7 +111,6 @@ public class Menu extends BasicGameState {
 				container.exit();
 			}
 			break;
-
 		case Input.KEY_K:
 		case Input.KEY_UP:
 			if (this.selected > 1) {
@@ -119,7 +118,6 @@ public class Menu extends BasicGameState {
 				playSound();
 			}
 			break;
-
 		case Input.KEY_J:
 		case Input.KEY_DOWN:
 			if (this.selected < 3) {
@@ -127,9 +125,8 @@ public class Menu extends BasicGameState {
 				playSound();
 			}
 			break;
-
 		case Input.KEY_F1:
-			s1.play();
+		    bienvenue.play();
 			break;
 		}
 	}
