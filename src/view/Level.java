@@ -122,7 +122,7 @@ public class Level extends BasicGameState {
 		id = level;
 
 		try {
-			l = new model.game.Level("maps/" + level);
+			l = new model.game.Level("ressources/maps/" + level);
 		} catch (IOException e) {
 		    game.enterState(0, new FadeOutTransition(),
                     new FadeInTransition());
