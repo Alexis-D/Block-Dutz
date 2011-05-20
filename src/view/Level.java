@@ -127,6 +127,10 @@ public class Level extends BasicGameState {
 		} catch (IOException e) {
 			game.enterState(0, new FadeOutTransition(), new FadeInTransition());
 		}
+		
+		if(id == 1) {
+			aide.play();
+		}
 	}
 
 	public void keyPressed(int key, char c) {
