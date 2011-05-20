@@ -92,6 +92,7 @@ public class Level extends BasicGameState {
 					theme.getPlayerDoor().draw(x, y);
 					if (!fini) {
 					    fini = true;
+					    aide.stop();
 					    winner.play();
 		                Database db = new Database();
 		                try {
@@ -134,6 +135,7 @@ public class Level extends BasicGameState {
 
 		case Input.KEY_ESCAPE:
 		    winner.stop();
+		    aide.stop();
 			game.enterState(0, new FadeOutTransition(), new FadeInTransition());
 			break;
 		case Input.KEY_SPACE:
@@ -154,6 +156,7 @@ public class Level extends BasicGameState {
 			theme = themes.next();
 			break;
 		case Input.KEY_ENTER:
+			aide.stop();
 			if (!fini) {
 				setLevel(id);
 			}
