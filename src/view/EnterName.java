@@ -14,14 +14,12 @@ import org.newdawn.slick.gui.ComponentListener;
 import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.state.transition.FadeInTransition;
-import org.newdawn.slick.state.transition.FadeOutTransition;
 
 @SuppressWarnings("deprecation")
 public class EnterName extends BasicGameState {
 	private TextField field;
 	private StateBasedGame game;
-	private Sound s;
+	private Sound aide;
 
 	public int getID() {
 		return 3;
@@ -29,13 +27,13 @@ public class EnterName extends BasicGameState {
 
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException {
-		s = new Sound("ressources/sounds/entrerNom.ogg");
+	    aide = new Sound("ressources/sounds/entrerNom.ogg");
 		this.game = sbg;
 		field = new TextField(gc, new TrueTypeFont(new java.awt.Font(
 				java.awt.Font.SANS_SERIF, java.awt.Font.BOLD, 40), true), 100,
 				200, 600, 100, new ComponentListener() {
 					public void componentActivated(AbstractComponent source) {
-						s.stop();
+					    aide.stop();
 						field.deactivate();
 						Player.name = field.getText();
 						game.enterState(0);
@@ -60,10 +58,13 @@ public class EnterName extends BasicGameState {
 	public void keyPressed(int key, char c) {
 		switch (key) {
 		case Input.KEY_ESCAPE:
-			game.enterState(10, new FadeOutTransition(), new FadeInTransition());
+		    aide.stop();
+			game.enterState(10);
 			break;
 		case Input.KEY_F1:
-			s.play(); break;
+			aide.stop();
+		    aide.play();
+			break;
 		}
 	}
 

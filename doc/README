@@ -1,0 +1,9 @@
+Block-Dutz is a remake of the famous Block Dude.
+
+The game consist of moving a character up to the finish.
+
+The game is written in Java, it uses the slick and sqlite libraries.
+
+It was written for Devint which is a manifestation at Polytech'Nice
+about visually impaired people.
+

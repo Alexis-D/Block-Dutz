@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<infos>
+  <year>2011</year>
+  <gamecategories>
+    <gamecategory>Plate-Forme</gamecategory>
+    <gamecategory>Arcade</gamecategory>
+  </gamecategories>
+  <shortdescription>Jeu de réflexion amusant dont le but est d'atteindre la sortie en déplaçant des caisses pour se frayer un chemin.</shortdescription>
+  <public>MV</public>
+  <age>7 ans ou plus</age>
+  <title>Block Dutz</title>
+  <authors>
+    <author>Berard Maxime</author>
+    <author>Daboville Alexis</author>
+    <author>Putz Grégory</author>
+    <author>Roche Guillaume</author>
+  </authors>
+  <notes>
+    <note>Ce jeu permet de développer votre capacité de réflexion, d'anticipation et d'organisation tout en vous amusant.</note>
+    <note>Une durée de vie exceptionnelle, car composé de 48 niveaux adaptés à tous.</note>
+  </notes>
+  <gameplay>Le jeu se joue exclusivement avec les flèches directionnelles gauche et droite pour se déplacer, et la barre d'espace pour porter/poser les caisses. Pour demander de l'aide, appuyer sur F1. Pour changer de thème en cours de jeu, appuyer sur F2.</gameplay>
+  <gamerules>Le but est d'atteindre la sortie représentée par un trophée en se déplaçant dans le niveau. Pour cela, il est nécessaire de déplacer des caisses pour se frayer un chemin. Le joueur gagne des points en fonction du nombre de déplacements effectués pour finir le niveau, à raison de 1 point pour 1 déplacement. Plus le nombre de déplacements est faible, meilleur est le score.</gamerules>
+</infos>
+

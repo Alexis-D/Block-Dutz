@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class Database {
 	private Connection conn;
-	private final String pathToDb = "database/scores.db";
+	private final String pathToDb = "ressources/database/scores.db";
 
 	public Database() {
 		try {
