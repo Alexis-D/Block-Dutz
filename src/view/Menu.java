@@ -49,7 +49,7 @@ public class Menu extends BasicGameState {
 		}
 
 		g.setColor(new Color(255, 255, 255));
-		g.drawString("Block Dutz", 300, 50);
+		g.drawString("Block Dutz", 250, 50);
 
 		String[] texte = { "Jouer", "Scores", "Quitter" };
 		for (int i = 1; i < 4; ++i) {
