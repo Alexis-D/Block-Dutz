@@ -111,20 +111,26 @@ public class Menu extends BasicGameState {
 		case Input.KEY_UP:
 			if (this.selected > 1) {
 				--this.selected;
-				playSound();
 			}
+			else
+				this.selected = 3;
+			playSound();
 			break;
 		case Input.KEY_J:
 		case Input.KEY_DOWN:
+			
 			if (this.selected < 3) {
 				++this.selected;
-				playSound();
 			}
+			else
+				this.selected = 1;
+			playSound();
 			break;
 		case Input.KEY_F1:
 			bienvenue.stop();
 		    bienvenue.play();
 			break;
+			
 		case Input.KEY_ESCAPE:
 			container.exit();
 			break;
