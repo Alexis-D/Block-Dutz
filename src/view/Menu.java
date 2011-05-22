@@ -125,6 +125,9 @@ public class Menu extends BasicGameState {
 			bienvenue.stop();
 		    bienvenue.play();
 			break;
+		case Input.KEY_ESCAPE:
+			container.exit();
+			break;
 		}
 	}
 }
