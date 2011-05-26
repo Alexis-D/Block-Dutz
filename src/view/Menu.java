@@ -29,6 +29,7 @@ public class Menu extends BasicGameState {
 		jouer = new Sound("ressources/sounds/menuJouer.ogg");
 		score = new Sound("ressources/sounds/menuScore.ogg");
 		quitter = new Sound("ressources/sounds/menuQuitter.ogg");
+		bienvenue.play();
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)

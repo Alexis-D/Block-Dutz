@@ -24,7 +24,7 @@ public class Level extends BasicGameState {
 	private StateBasedGame game;
 	private int id;
 	private Sound winner, bloquer;
-	private Sound aide, pas;
+	private Sound aideGenerale, aideGameplay, pas;
 
 	private model.game.Level l = null;
 	private Themes themes = new Themes();
@@ -49,7 +49,8 @@ public class Level extends BasicGameState {
 			throws SlickException {
 		winner = new Sound("ressources/sounds/winner.ogg");
 		bloquer = new Sound("ressources/sounds/bloquer.ogg");
-		aide = new Sound("ressources/sounds/aide.ogg");
+		aideGenerale = new Sound("ressources/sounds/aideGenerale.ogg");
+		aideGameplay = new Sound("ressources/sounds/aideGameplay.ogg");
 		pas = new Sound("ressources/sounds/bruitPas.ogg");
 		this.game = sbg;
 		fini = false;
@@ -91,7 +92,8 @@ public class Level extends BasicGameState {
 					theme.getPlayerDoor().draw(x, y);
 					if (!fini) {
 						fini = true;
-						aide.stop();
+						aideGenerale.stop();
+						aideGameplay.stop();
 						winner.play();
 						Database db = new Database();
 						try {
@@ -127,8 +129,9 @@ public class Level extends BasicGameState {
 		}
 		
 		if(id == 1) {
-			aide.stop();
-			aide.play();
+			aideGenerale.stop();
+			aideGameplay.stop();
+			aideGenerale.play();
 		}
 	}
 
@@ -138,29 +141,44 @@ public class Level extends BasicGameState {
 
 		case Input.KEY_ESCAPE:
 			winner.stop();
-			aide.stop();
+			aideGenerale.stop();
+			aideGameplay.stop();
 			game.enterState(0);
 			break;
+			
 		case Input.KEY_SPACE:
 			a = Action.TOGGLE;
 			break;
+			
 		case Input.KEY_H:
 		case Input.KEY_LEFT:
 			a = Action.LEFT;
 			break;
+			
 		case Input.KEY_L:
 		case Input.KEY_RIGHT:
 			a = Action.RIGHT;
 			break;
+			
 		case Input.KEY_F1:
-			aide.stop();
-			aide.play();
+			aideGenerale.stop();
+			aideGameplay.stop();
+			aideGenerale.play();
 			break;
+			
 		case Input.KEY_F2:
 			theme = themes.next();
 			break;
+			
+		case Input.KEY_F3:
+			aideGenerale.stop();
+			aideGameplay.stop();
+			aideGameplay.play();
+			break;
+			
 		case Input.KEY_ENTER:
-			aide.stop();
+			aideGenerale.stop();
+			aideGameplay.stop();
 			if (!fini) {
 				setLevel(id);
 			} else {
